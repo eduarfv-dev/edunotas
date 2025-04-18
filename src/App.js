@@ -67,7 +67,6 @@ function App() {
         if (!completeUserData.role) {
              console.error(`¡El usuario ${authUser.uid} no tiene un campo 'role' definido en Firestore!`);
              setAuthError("Error: No se pudo determinar el rol del usuario. Contacte al administrador.");
-             // await auth.signOut();
              setCurrentView('login');
              setIsLoading(false);
              return;
@@ -85,21 +84,18 @@ function App() {
         } else {
           console.warn(`Rol desconocido en Firestore para el usuario ${authUser.uid}: ${role}`);
           setAuthError("Rol de usuario no reconocido.");
-          // await auth.signOut();
           setCurrentView('login');
         }
 
       } else {
         console.error(`¡No se encontraron datos en Firestore para el usuario autenticado ${authUser.uid}! Asegúrate de que el ID del documento en 'usuarios' coincida con el UID de Authentication.`);
         setAuthError("Error: Su cuenta existe pero no está registrada correctamente en la plataforma. Contacte al administrador.");
-        // await auth.signOut();
         setCurrentView('login');
       }
 
     } catch (error) {
       console.error("Error al obtener datos del usuario desde Firestore:", error);
       setAuthError("Ocurrió un error inesperado al cargar los datos del usuario.");
-      // await auth.signOut();
       setCurrentView('login');
     } finally {
       setIsLoading(false);
@@ -159,7 +155,10 @@ function App() {
       case 'student':
         return userData ? <StudentDashboard username={userData.displayName || userData.email} onLogout={handleLogout} onNavigateToGrades={showStudentGrades} onNavigateToForum={showStudentForum} onNavigateToChat={showStudentChat} /> : null;
       case 'grades':
-        return <GradesView onBack={showStudentDashboard} />;
+        return userData ? <GradesView
+                              studentUid={userData.uid} // <-- PROP AÑADIDA/CORREGIDA AQUÍ
+                              onBack={showStudentDashboard}
+                              /> : null;
       case 'forum':
         return <StudentForum onBack={showStudentDashboard} />;
       case 'chat':

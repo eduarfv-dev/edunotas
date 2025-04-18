@@ -19,7 +19,10 @@ function RegisterGrades({ teacherUid, onBack }) {
   const [saveStatus, setSaveStatus] = useState({ error: null, success: null });
 
   useEffect(() => {
-    if (!teacherUid) return;
+    if (!teacherUid) {
+      setCoursesError("No se pudo identificar al profesor.");
+      return;
+    }
     setIsLoadingCourses(true);
     setCoursesError(null);
     const q = query(collection(db, "cursos"), where("teacherId", "==", teacherUid));
@@ -31,16 +34,24 @@ function RegisterGrades({ teacherUid, onBack }) {
       })
       .catch(err => {
         console.error("Error fetching courses:", err);
-        setCoursesError("No se pudieron cargar los cursos.");
+        setCoursesError("No se pudieron cargar los cursos asignados.");
       })
       .finally(() => setIsLoadingCourses(false));
   }, [teacherUid]);
 
   const loadStudentsAndGrades = useCallback(async (courseId) => {
-    if (!courseId) {
+    if (!teacherUid) {
+      setStudentsError("No se puede cargar información sin identificar al profesor.");
+      setIsLoadingStudents(false);
       setStudentsData([]);
       return;
     }
+    if (!courseId) {
+      setStudentsData([]);
+      setIsLoadingStudents(false);
+      return;
+    }
+
     setIsLoadingStudents(true);
     setStudentsError(null);
     setStudentsData([]);
@@ -66,17 +77,18 @@ function RegisterGrades({ teacherUid, onBack }) {
       const studentDocs = await Promise.all(studentPromises);
       const validStudentDocs = studentDocs.filter(snap => snap.exists());
 
-       if(validStudentDocs.length === 0) {
+      if(validStudentDocs.length === 0) {
            setIsLoadingStudents(false);
            return;
-       }
-
+      }
 
       const gradesQuery = query(
         collection(db, "grades"),
         where("courseId", "==", courseId),
+        where("teacherId", "==", teacherUid),
         where("studentId", "in", studentIds)
       );
+
       const gradesSnapshot = await getDocs(gradesQuery);
       const existingGradesMap = new Map();
       gradesSnapshot.forEach(gradeDoc => {
@@ -97,11 +109,16 @@ function RegisterGrades({ teacherUid, onBack }) {
               gradesInput[`nota${index}`] = existingStudentGrades[name]?.score ?? '';
           });
 
+          // Carga la observación actual y guarda la original para comparación
+          const currentObservation = userData.observation || ''; // Ajusta 'observation' si el campo se llama diferente
+
           return {
+              id: studentId,
               lastName: userData.lastName || '',
               firstName: userData.firstName || userData.displayName || studentId,
               gradesInput: gradesInput,
-              observations: '',
+              observations: currentObservation, // Para el input
+              originalObservation: currentObservation, // Para comparar al guardar
               existingGrades: existingStudentGrades
           };
       });
@@ -110,11 +127,17 @@ function RegisterGrades({ teacherUid, onBack }) {
 
     } catch (err) {
       console.error("Error loading students/grades:", err);
-      setStudentsError("Error al cargar datos de estudiantes o notas.");
+      if (err.code === 'permission-denied') {
+          setStudentsError("Error de permisos al cargar datos. Verifica las reglas de Firestore.");
+      } else if (err.code === 'failed-precondition' && err.message.includes('index')) {
+          setStudentsError("Se necesita un índice en Firestore. Revisa la consola del navegador para el enlace.");
+      } else {
+          setStudentsError("Error al cargar datos de estudiantes o notas.");
+      }
     } finally {
       setIsLoadingStudents(false);
     }
-  }, []);
+  }, [teacherUid]);
 
   useEffect(() => {
     loadStudentsAndGrades(selectedCourseId);
@@ -129,7 +152,7 @@ function RegisterGrades({ teacherUid, onBack }) {
             ...student,
             gradesInput: {
               ...student.gradesInput,
-              [gradeKey]: value === '' ? '' : value
+              [gradeKey]: value
             }
           };
         }
@@ -158,7 +181,7 @@ function RegisterGrades({ teacherUid, onBack }) {
           return {
               ...s,
               gradesInput: clearedGradesInput,
-              observations: '',
+              observations: s.originalObservation, // Restaura la observación original al limpiar
           };
       })
     );
@@ -166,13 +189,28 @@ function RegisterGrades({ teacherUid, onBack }) {
   };
 
   const handleSave = async () => {
-    if (!selectedCourseId) return;
+    if (!selectedCourseId || !teacherUid) {
+        setSaveStatus({ error: "Falta información del curso o del profesor.", success: null });
+        return;
+    }
+    if (studentsData.length === 0) {
+        setSaveStatus({ error: "No hay datos de estudiantes para guardar.", success: null });
+        return;
+    }
+
     setIsSaving(true);
     setSaveStatus({ error: null, success: null });
     const batch = writeBatch(db);
+    let operationsCount = 0;
 
     try {
       for (const student of studentsData) {
+        if (!student.id) {
+            console.warn("Intentando guardar notas para estudiante sin ID:", student);
+            continue;
+        }
+
+        // Guardar/Actualizar NOTAS
         for (let i = 0; i < ASSIGNMENT_NAMES.length; i++) {
           const gradeKey = `nota${i}`;
           const assignmentName = ASSIGNMENT_NAMES[i];
@@ -181,7 +219,8 @@ function RegisterGrades({ teacherUid, onBack }) {
 
           if (gradeValue !== '' && gradeValue !== null && gradeValue !== undefined) {
             const score = parseFloat(gradeValue);
-            if (!isNaN(score)) {
+
+            if (!isNaN(score) && score >= 0 && score <= 5) {
               const gradePayload = {
                 courseId: selectedCourseId,
                 studentId: student.id,
@@ -192,26 +231,56 @@ function RegisterGrades({ teacherUid, onBack }) {
               };
 
               if (existingGradeData) {
+                // Actualiza si existe Y el valor es válido (incluye si no cambió pero se guardó)
                 const gradeDocRef = doc(db, "grades", existingGradeData.id);
                 batch.update(gradeDocRef, gradePayload);
+                operationsCount++;
               } else {
+                // Crea si no existe Y el valor es válido
                 const newGradeDocRef = doc(collection(db, "grades"));
                 batch.set(newGradeDocRef, gradePayload);
+                operationsCount++;
               }
             } else {
-               console.warn(`Valor inválido para ${student.id} - ${assignmentName}: ${gradeValue}`);
+                 console.warn(`Valor inválido o fuera de rango para ${student.id} - ${assignmentName}: ${gradeValue}. No guardado.`);
             }
+          } else if (existingGradeData) {
+             // Opcional: Si el input se vació, se podría borrar la nota existente
+             // console.log(`Input vacío para ${student.id} - ${assignmentName}. Nota existente no se borra.`);
+             // Para borrar: batch.delete(doc(db, "grades", existingGradeData.id)); operationsCount++;
           }
-        }
+        } // Fin del bucle de notas
+
+        // Guardar/Actualizar OBSERVACIONES
+        if (student.observations !== student.originalObservation) {
+            if (student.id) {
+                const studentDocRef = doc(db, "usuarios", student.id);
+                batch.update(studentDocRef, {
+                    observation: student.observations // Ajusta 'observation' si el campo es diferente
+                });
+                operationsCount++;
+            } else {
+                 console.warn("Intentando guardar observación para estudiante sin ID:", student);
+            }
+        } // Fin de la lógica de observaciones
+
+      } // Fin del bucle de estudiantes
+
+      if (operationsCount > 0) {
+          await batch.commit();
+          setSaveStatus({ error: null, success: `¡${operationsCount} operación(es) guardada(s) exitosamente!` });
+          loadStudentsAndGrades(selectedCourseId); // Recarga datos para reflejar cambios
+      } else {
+          setSaveStatus({ error: null, success: "No hubo cambios para guardar." });
       }
 
-      await batch.commit();
-      setSaveStatus({ error: null, success: "¡Calificaciones guardadas exitosamente!" });
-      loadStudentsAndGrades(selectedCourseId);
-
     } catch (error) {
-       console.error("Error saving grades:", error);
-       setSaveStatus({ error: "Error al guardar las calificaciones.", success: null });
+       console.error("Error saving data:", error);
+       if (error.code === 'permission-denied') {
+           setSaveStatus({ error: "Error de permisos al guardar. Verifica las reglas de Firestore.", success: null });
+       } else {
+           setSaveStatus({ error: "Error al guardar los cambios.", success: null });
+       }
     } finally {
        setIsSaving(false);
     }
@@ -234,24 +303,24 @@ function RegisterGrades({ teacherUid, onBack }) {
 
       <div className="register-grades-sidebar">
         <label htmlFor="course-select">Curso:</label>
-        {isLoadingCourses && <p>Cargando...</p>}
-        {coursesError && <p style={{color:'red'}}>{coursesError}</p>}
+        {isLoadingCourses && <p>Cargando cursos...</p>}
+        {coursesError && <p className="error-message">{coursesError}</p>}
         <select
             id="course-select"
             value={selectedCourseId}
             onChange={(e) => setSelectedCourseId(e.target.value)}
             disabled={isLoadingCourses || courses.length === 0}
             >
-          <option value="">Selecciona...</option>
+          <option value="">Selecciona un curso...</option>
           {courses.map(course => <option key={course.id} value={course.id}>{course.name}</option>)}
         </select>
-         {!isLoadingCourses && courses.length === 0 && !coursesError && <p>No hay cursos.</p>}
+         {!isLoadingCourses && courses.length === 0 && !coursesError && <p>No tienes cursos asignados.</p>}
       </div>
 
       <div className="register-grades-main-content">
         <h1>Registro de Calificaciones</h1>
          {isLoadingStudents && <p>Cargando estudiantes...</p>}
-         {studentsError && <p style={{color:'red'}}>{studentsError}</p>}
+         {studentsError && <p className="error-message">{studentsError}</p>}
 
         <div className='register-grades-table-wrapper'>
             <table>
@@ -268,7 +337,6 @@ function RegisterGrades({ teacherUid, onBack }) {
                 {!isLoadingStudents && studentsData.length > 0 ? (
                     studentsData.map((student) => (
                         <tr key={student.id}>
-                        {/* *** VERIFICA ESTOS CAMPOS *** */}
                         <td>{student.lastName}</td>
                         <td>{student.firstName}</td>
                         {ASSIGNMENT_NAMES.map((name, index) => {
@@ -280,9 +348,10 @@ function RegisterGrades({ teacherUid, onBack }) {
                                         min="0"
                                         max="5"
                                         step="0.1"
-                                        value={student.gradesInput[gradeKey]}
+                                        value={student.gradesInput?.[gradeKey] ?? ''}
                                         onChange={(e) => handleGradeChange(student.id, gradeKey, e.target.value)}
                                         disabled={isSaving}
+                                        className="grade-input"
                                     />
                                 </td>
                             );
@@ -294,6 +363,7 @@ function RegisterGrades({ teacherUid, onBack }) {
                                 value={student.observations}
                                 onChange={(e) => handleObservationChange(student.id, e.target.value)}
                                 disabled={isSaving}
+                                className="observation-input"
                             />
                         </td>
                         </tr>
@@ -302,7 +372,7 @@ function RegisterGrades({ teacherUid, onBack }) {
                      !isLoadingStudents && !studentsError && (
                          <tr>
                             <td colSpan={ASSIGNMENT_NAMES.length + 3}>
-                                {selectedCourseId ? "No hay estudiantes en este curso." : "Selecciona un curso para ver estudiantes."}
+                                {selectedCourseId ? "No hay estudiantes inscritos en este curso." : "Selecciona un curso para cargar estudiantes."}
                             </td>
                         </tr>
                      )
@@ -312,8 +382,8 @@ function RegisterGrades({ teacherUid, onBack }) {
         </div>
         {!isLoadingStudents && studentsData.length > 0 && (
             <div className="register-grades-buttons">
-                {saveStatus.error && <p style={{ color: 'red', flexBasis: '100%' }}>{saveStatus.error}</p>}
-                {saveStatus.success && <p style={{ color: 'green', flexBasis: '100%' }}>{saveStatus.success}</p>}
+                {saveStatus.error && <p className="error-message status-message">{saveStatus.error}</p>}
+                {saveStatus.success && <p className="success-message status-message">{saveStatus.success}</p>}
                 <button className="register-grades-clear-button" onClick={handleClear} disabled={isSaving}>
                     Limpiar Notas
                 </button>

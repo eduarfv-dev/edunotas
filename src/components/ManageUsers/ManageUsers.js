@@ -1,16 +1,57 @@
-import React from 'react';
-import './ManageUsers.css'; 
+import React, { useState } from 'react';
+import CreateUserForm from './CreateUserForm';
+import { functions } from '../../firebase';
+import { httpsCallable } from "firebase/functions";
+import './ManageUsers.css';
 
-function ManageUsers({ onBack }) { 
+function ManageUsers({ onBack }) {
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [roleToCreate, setRoleToCreate] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleModifyUsers = (userType) => {
-      console.log(`Admin: Modificar ${userType}`);
-      alert(`Funcionalidad "Modificar ${userType}" no implementada.`);
+    console.log(`Admin: Modificar ${userType}`);
+    alert(`Funcionalidad "Modificar ${userType}" no implementada.`);
+    setError('');
+    setSuccessMessage('');
   };
 
-  const handleCreateUsers = (userType) => {
-       console.log(`Admin: Crear ${userType}`);
-      alert(`Funcionalidad "Crear ${userType}" no implementada.`);
+  const handleShowCreateForm = (role) => {
+    setRoleToCreate(role);
+    setShowCreateForm(true);
+    setError('');
+    setSuccessMessage('');
+  };
+
+  const handleCloseCreateForm = () => {
+    setShowCreateForm(false);
+    setRoleToCreate('');
+  };
+
+  const handleCreateUser = async (userData) => {
+    setIsLoading(true);
+    setError('');
+    setSuccessMessage('');
+
+    try {
+      const createUserFunction = httpsCallable(functions, 'createUser');
+      const result = await createUserFunction(userData);
+
+      if (result.data.success) {
+        setSuccessMessage(`Usuario ${userData.role} creado: ${userData.email}`);
+        handleCloseCreateForm();
+      } else {
+        throw new Error(result.data.error || 'Error desconocido al crear usuario.');
+      }
+
+    } catch (err) {
+      console.error("Error al llamar a la función createUser:", err);
+      setError(err.message || 'Error al crear el usuario.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -18,10 +59,14 @@ function ManageUsers({ onBack }) {
       <button onClick={onBack} className="manage-users-back-button">
         Regresar
       </button>
-      
+
       <div className="manage-users-header">
         <h1>Gestión de Usuarios</h1>
       </div>
+
+      {isLoading && <p className="loading-message">Procesando...</p>}
+      {error && <p className="error-message">{error}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
 
       <div className="manage-users-content">
         <div className="manage-users-modify-section">
@@ -41,18 +86,27 @@ function ManageUsers({ onBack }) {
         <div className="manage-users-create-section">
           <h2>Seleccione usuarios a crear:</h2>
           <ul>
-            <li onClick={() => handleCreateUsers('profesores')}>
+            <li onClick={() => handleShowCreateForm('teacher')}>
               Profesores <span className="manage-users-icon">+</span>
             </li>
-            <li onClick={() => handleCreateUsers('estudiantes')}>
+            <li onClick={() => handleShowCreateForm('student')}>
               Estudiantes <span className="manage-users-icon">+</span>
             </li>
-            <li onClick={() => handleCreateUsers('administrativos')}>
+            <li onClick={() => handleShowCreateForm('admin')}>
               Administrativos <span className="manage-users-icon">+</span>
             </li>
           </ul>
         </div>
       </div>
+
+      {showCreateForm && (
+        <CreateUserForm
+          role={roleToCreate}
+          onSubmit={handleCreateUser}
+          onCancel={handleCloseCreateForm}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 }

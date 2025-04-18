@@ -1,0 +1,137 @@
+[debug] [2025-04-18T23:10:29.828Z] ----------------------------------------------------------------------
+[debug] [2025-04-18T23:10:29.832Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\eduar\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2025-04-18T23:10:29.832Z] CLI Version:   14.2.0
+[debug] [2025-04-18T23:10:29.833Z] Platform:      win32
+[debug] [2025-04-18T23:10:29.833Z] Node Version:  v22.14.0
+[debug] [2025-04-18T23:10:29.833Z] Time:          Fri Apr 18 2025 18:10:29 GMT-0500 (hora estándar de Colombia)
+[debug] [2025-04-18T23:10:29.833Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-04-18T23:10:30.091Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-04-18T23:10:30.092Z] > authorizing via signed-in user (eduar123pc@gmail.com)
+[debug] [2025-04-18T23:10:30.303Z] java version "23.0.2" 2025-01-21
+Java(TM) SE Runtime Environment (build 23.0.2+7-58)
+
+[debug] [2025-04-18T23:10:30.304Z] Java HotSpot(TM) 64-Bit Server VM (build 23.0.2+7-58, mixed mode, sharing)
+
+[debug] [2025-04-18T23:10:30.334Z] Parsed Java major version: 23
+[info] i  emulators: Starting emulators: functions, firestore, hosting, extensions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, firestore, hosting, extensions"}}
+[debug] [2025-04-18T23:10:30.340Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:30.341Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:30.342Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/proyecto-react-9cbc3 [none]
+[debug] [2025-04-18T23:10:31.060Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/proyecto-react-9cbc3 200
+[debug] [2025-04-18T23:10:31.060Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/proyecto-react-9cbc3 {"projectNumber":"206850531114","projectId":"proyecto-react-9cbc3","lifecycleState":"ACTIVE","name":"proyecto-react","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-04-17T20:47:39.714605Z"}
+[debug] [2025-04-18T23:10:31.082Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-04-18T23:10:31.082Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-04-18T23:10:31.082Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-04-18T23:10:31.082Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-04-18T23:10:31.082Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[warn] !  emulators: It seems that you are running multiple instances of the emulator suite for project proyecto-react-9cbc3. This may result in unexpected behavior. 
+[debug] [2025-04-18T23:10:31.096Z] [hub] writing locator at C:\Users\eduar\AppData\Local\Temp\hub-proyecto-react-9cbc3.json
+[debug] [2025-04-18T23:10:31.109Z] [Extensions] Started Extensions emulator, this is a noop.
+[debug] [2025-04-18T23:10:31.118Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-04-18T23:10:31.118Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-04-18T23:10:31.118Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-04-18T23:10:31.118Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: apphosting, auth, database, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mapphosting, auth, database, pubsub, storage, dataconnect\u001b[22m"}}
+[debug] [2025-04-18T23:10:31.258Z] defaultcredentials: writing to file C:\Users\eduar\AppData\Roaming\firebase\eduar123pc_gmail_com_application_default_credentials.json
+[debug] [2025-04-18T23:10:31.262Z] Setting GAC to C:\Users\eduar\AppData\Roaming\firebase\eduar123pc_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eduar\\AppData\\Roaming\\firebase\\eduar123pc_gmail_com_application_default_credentials.json"}}
+[debug] [2025-04-18T23:10:31.263Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:31.263Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:31.263Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/adminSdkConfig [none]
+[debug] [2025-04-18T23:10:31.722Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/adminSdkConfig 200
+[debug] [2025-04-18T23:10:31.722Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/adminSdkConfig {"projectId":"proyecto-react-9cbc3","storageBucket":"proyecto-react-9cbc3.firebasestorage.app"}
+[debug] [2025-04-18T23:10:31.759Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-04-18T23:10:31.759Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2025-04-18T23:10:31.759Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\eduar\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.19.8.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","proyecto-react-9cbc3","--rules","C:\\Users\\eduar\\Desktop\\proyect-react\\programasena\\firestore.rules","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false,"shell":false,"port":8080} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\eduar\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.19.8.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"proyecto-react-9cbc3\",\"--rules\",\"C:\\\\Users\\\\eduar\\\\Desktop\\\\proyect-react\\\\programasena\\\\firestore.rules\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":8080}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2025-04-18T23:10:34.261Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:34.261Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:34.261Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/sites 
+[debug] [2025-04-18T23:10:35.536Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/sites 200
+[debug] [2025-04-18T23:10:35.536Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/sites {"sites":[{"name":"projects/proyecto-react-9cbc3/sites/edunotas","defaultUrl":"https://edunotas.web.app","appId":"1:206850531114:web:8cfd6df0f977ca36608853","type":"USER_SITE"},{"name":"projects/proyecto-react-9cbc3/sites/proyecto-react-9cbc3","defaultUrl":"https://proyecto-react-9cbc3.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2025-04-18T23:10:35.537Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:35.537Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:35.537Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/webApps/-/config [none]
+[debug] [2025-04-18T23:10:35.905Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/webApps/-/config 200
+[debug] [2025-04-18T23:10:35.905Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3/webApps/-/config {"projectId":"proyecto-react-9cbc3","appId":"1:206850531114:web:8cfd6df0f977ca36608853","storageBucket":"proyecto-react-9cbc3.firebasestorage.app","apiKey":"AIzaSyAfqCmeSruCGSPObmCmUpayOtYroHRyZPI","authDomain":"proyecto-react-9cbc3.firebaseapp.com","messagingSenderId":"206850531114"}
+[debug] [2025-04-18T23:10:35.922Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:35.922Z] Checked if tokens are valid: true, expires at: 1745021319638
+[debug] [2025-04-18T23:10:35.922Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3 [none]
+[debug] [2025-04-18T23:10:36.155Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3 200
+[debug] [2025-04-18T23:10:36.156Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-react-9cbc3 {"projectId":"proyecto-react-9cbc3","projectNumber":"206850531114","displayName":"proyecto-react","name":"projects/proyecto-react-9cbc3","resources":{"hostingSite":"proyecto-react-9cbc3"},"state":"ACTIVE","etag":"1_ec7a7f5d-f3d3-4f96-80a2-0b710a2e2445"}
+[info] i  hosting[proyecto-react-9cbc3]: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] +  hosting[proyecto-react-9cbc3]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2025-04-18T23:10:36.206Z] [Extensions] Connecting Extensions emulator, this is a noop.
+[info] i  functions: Watching "C:\Users\eduar\Desktop\proyect-react\programasena\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\eduar\\Desktop\\proyect-react\\programasena\\functions\" for Cloud Functions..."}}
+[debug] [2025-04-18T23:10:36.217Z] Validating nodejs source
+[debug] [2025-04-18T23:10:37.804Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.3.2"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-04-18T23:10:37.805Z] Building nodejs source
+[debug] [2025-04-18T23:10:37.805Z] Failed to find version of module node: reached end of search path C:\Users\eduar\Desktop\proyect-react\programasena\functions\node_modules
+[info] +  functions: Using node@22 from host. 
+[debug] [2025-04-18T23:10:37.808Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-04-18T23:10:37.815Z] Found firebase-functions binary at 'C:\Users\eduar\Desktop\proyect-react\programasena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8869
+
+[debug] [2025-04-18T23:10:38.655Z] Got response from /__/functions.yaml {"endpoints":{"createUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"createUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-04-18T23:10:42.697Z] defaultcredentials: writing to file C:\Users\eduar\AppData\Roaming\firebase\eduar123pc_gmail_com_application_default_credentials.json
+[debug] [2025-04-18T23:10:42.699Z] Setting GAC to C:\Users\eduar\AppData\Roaming\firebase\eduar123pc_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eduar\\AppData\\Roaming\\firebase\\eduar123pc_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: createUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: createUser."}}
+[info] +  functions[us-central1-createUser]: http function initialized (http://127.0.0.1:5001/proyecto-react-9cbc3/us-central1/createUser). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/proyecto-react-9cbc3/us-central1/createUser)."}}
+[debug] [2025-04-18T23:10:42.712Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────┬────────────────┬──────────────────────────────────┐
+│ Emulator   │ Host:Port      │ View in Emulator UI              │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Functions  │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions  │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Firestore  │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore  │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Hosting    │ 127.0.0.1:5000 │ n/a                              │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Extensions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/extensions │
+└────────────┴────────────────┴──────────────────────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500, 9150
+┌─────────────────────────┬───────────────┬─────────────────────┐
+│ Extension Instance Name │ Extension Ref │ View in Emulator UI │
+└─────────────────────────┴───────────────┴─────────────────────┘
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] "GET /static/css/main.accb076a.chunk.css HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] \"GET /static/css/main.accb076a.chunk.css HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] "GET /static/js/main.00d6d1f1.chunk.js HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] \"GET /static/js/main.00d6d1f1.chunk.js HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] "GET /static/css/2.95007716.chunk.css HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] \"GET /static/css/2.95007716.chunk.css HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] "GET /static/js/2.e0a62868.chunk.js HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] \"GET /static/js/2.e0a62868.chunk.js HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] "GET /static/media/fondo.9ab0d42c.png HTTP/1.1" 200 109935 "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] \"GET /static/media/fondo.9ab0d42c.png HTTP/1.1\" 200 109935 \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] "GET /static/media/boxicons.aab73283.woff2 HTTP/1.1" 200 115680 "http://127.0.0.1:5000/static/css/2.95007716.chunk.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:55 +0000] \"GET /static/media/boxicons.aab73283.woff2 HTTP/1.1\" 200 115680 \"http://127.0.0.1:5000/static/css/2.95007716.chunk.css\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:56 +0000] "GET /manifest.json HTTP/1.1" 200 492 "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:56 +0000] \"GET /manifest.json HTTP/1.1\" 200 492 \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:56 +0000] "GET /favicon.ico HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:56 +0000] \"GET /favicon.ico HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Apr/2025:23:10:56 +0000] "GET /logo192.png HTTP/1.1" 200 5347 "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Apr/2025:23:10:56 +0000] \"GET /logo192.png HTTP/1.1\" 200 5347 \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}

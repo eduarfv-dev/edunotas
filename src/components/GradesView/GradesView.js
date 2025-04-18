@@ -1,87 +1,182 @@
 import React, { useState, useEffect } from 'react';
-import './GradesView.css'; 
+import { db } from '../../firebase'; 
+import { collection, query, where, getDocs, doc, getDoc, orderBy, Timestamp } from "firebase/firestore";
+function GradesView({ studentUid, onBack }) {
 
-function GradesView({ onBack, subjectGradesData }) { 
-  const [selectedSubject, setSelectedSubject] = useState(''); 
-  const [filteredGrades, setFilteredGrades] = useState([]); 
-
-  const subjectOptions = ['Matemáticas', 'Programación Web', 'Bases de Datos', 'Inglés']; 
+  const [grades, setGrades] = useState([]);
+  const [courseNames, setCourseNames] = useState({}); 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-     if (!selectedSubject && subjectGradesData) {
-         setFilteredGrades(subjectGradesData); 
-     } else {
-         setFilteredGrades([]); 
-         if(selectedSubject){
-            console.log(`Simulando búsqueda para: ${selectedSubject}`);
-            // Si quisieras mostrar un alert al seleccionar, podrías hacerlo aquí
-            // alert(`Búsqueda para ${selectedSubject} no implementada.`);
-         }
-     }
-  }, [selectedSubject, subjectGradesData]); 
-  
-  // handleSearch ya no existe
+    if (!studentUid) {
+      setError("No se pudo identificar al estudiante.");
+      setIsLoading(false);
+      return;
+    }
+
+    const fetchGradesAndCourses = async () => {
+      setIsLoading(true);
+      setError(null);
+      console.log(`Buscando notas para el estudiante UID: ${studentUid}`);
+
+      try {
+        const gradesRef = collection(db, "grades");
+        const q = query(
+            gradesRef,
+            where("studentId", "==", studentUid),
+            orderBy("gradeDate", "desc")
+        );
+        const gradesSnapshot = await getDocs(q);
+
+        const fetchedGrades = [];
+        const courseIdsToFetch = new Set();
+
+        gradesSnapshot.forEach((doc) => {
+          const gradeData = { id: doc.id, ...doc.data() };
+          fetchedGrades.push(gradeData);
+          if (gradeData.courseId) {
+            courseIdsToFetch.add(gradeData.courseId);
+          }
+        });
+
+        console.log("Notas encontradas:", fetchedGrades);
+
+        let namesMap = {};
+        if (courseIdsToFetch.size > 0) {
+          console.log("Buscando nombres para los cursos IDs:", Array.from(courseIdsToFetch));
+          const coursePromises = Array.from(courseIdsToFetch).map(id => getDoc(doc(db, "cursos", id)));
+          const courseDocs = await Promise.all(coursePromises);
+
+          courseDocs.forEach(docSnap => {
+            if (docSnap.exists()) {
+              namesMap[docSnap.id] = docSnap.data().name || `Curso (ID: ${docSnap.id.substring(0,4)}...)`;
+            } else {
+              console.warn(`No se encontró el curso con ID: ${docSnap.id}`);
+              namesMap[docSnap.id] = `Curso Desconocido (ID: ${docSnap.id.substring(0,4)}...)`;
+            }
+          });
+          console.log("Nombres de cursos mapeados:", namesMap);
+          setCourseNames(namesMap);
+        }
+
+        setGrades(fetchedGrades);
+
+      } catch (err) {
+        console.error("Error al buscar notas o cursos:", err);
+        if (err.code === 'permission-denied') {
+             setError("No tienes permiso para ver estas calificaciones. Verifica las reglas de seguridad.");
+        } else {
+            setError("Error al cargar las calificaciones.");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchGradesAndCourses();
+
+  }, [studentUid]);
+
+  const formatDate = (timestamp) => {
+    if (timestamp instanceof Timestamp) {
+      return timestamp.toDate().toLocaleDateString();
+    }
+    return 'Fecha no disponible';
+  };
+
+
+  if (isLoading) {
+    return (
+      <div className="grades-view-container" style={styles.container}>
+        <h2>Mis Calificaciones</h2>
+        <p>Cargando calificaciones...</p>
+        <button onClick={onBack} style={styles.backButton}>{"< Regresar"}</button>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="grades-view-container" style={styles.container}>
+        <h2>Mis Calificaciones</h2>
+        <p style={{ color: 'red' }}>{error}</p>
+        <button onClick={onBack} style={styles.backButton}>{"< Regresar"}</button>
+      </div>
+    );
+  }
 
   return (
-    <div className="grades-display-container"> 
-      <button onClick={onBack} className="grades-back-button">
-        <i className='bx bx-arrow-back' style={{ marginRight: '5px' }}></i> 
-        Regresar
-      </button>
+    <div className="grades-view-container" style={styles.container}>
+      <button onClick={onBack} style={styles.backButton}>{"< Regresar"}</button>
+      <h2>Mis Calificaciones</h2>
 
-      <div className="grades-content">
-        <h2>Visualización de Calificaciones</h2>
-
-        <div className="grades-search-container">
-          <select 
-            name="materia" 
-            id="materia" 
-            value={selectedSubject}
-            onChange={(e) => setSelectedSubject(e.target.value)}
-          >
-            <option value="">Selecciona materia...</option>
-            {subjectOptions.map(subject => (
-              <option key={subject} value={subject}>{subject}</option>
-            ))}
-          </select>
-          {/* Botón buscar sigue comentado (o eliminado) */}
-          {/* <button className="grades-search-button" onClick={handleSearch}>Buscar</button> */}
-        </div>
-
-        <div className="grades-table-wrapper"> 
-          <table>
-            <thead>
-              <tr>
-                <th>Periodo</th>
-                <th>Nota 1</th>
-                <th>Nota 2</th>
-                <th>Nota 3</th>
-                <th>Nota 4</th>
-                <th>Promedio</th>
+      {grades.length === 0 ? (
+        <p>Aún no tienes calificaciones registradas.</p>
+      ) : (
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.th}>Curso</th>
+              <th style={styles.th}>Tarea/Evaluación</th>
+              <th style={styles.th}>Nota</th>
+              <th style={styles.th}>Fecha Registro</th>
+            </tr>
+          </thead>
+          <tbody>
+            {grades.map((grade) => (
+              <tr key={grade.id}>
+                <td style={styles.td}>{courseNames[grade.courseId] || 'Cargando...'}</td>
+                <td style={styles.td}>{grade.assignmentName}</td>
+                <td style={styles.td}>{grade.score}</td>
+                <td style={styles.td}>{formatDate(grade.gradeDate)}</td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredGrades.length > 0 ? (
-                filteredGrades.map((row) => (
-                  <tr key={row.period}>
-                    <td>{row.period}</td>
-                    {row.scores.map((score, index) => (
-                      <td key={index}>{score ?? ''}</td>
-                    ))}
-                    <td>{row.average ?? ''}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="6">{selectedSubject ? 'No hay datos para esta materia.' : 'Selecciona una materia para ver las notas.'}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
+
+const styles = {
+  container: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    padding: '30px',
+    borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    width: '80%',
+    maxWidth: '800px',
+    margin: '20px auto',
+    position: 'relative'
+  },
+  backButton: {
+    position: 'absolute',
+    top: '15px',
+    left: '15px',
+    cursor: 'pointer',
+    background: 'none',
+    border: 'none',
+    color: '#007bff',
+    textDecoration: 'underline',
+    fontSize: '0.9em'
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    marginTop: '20px',
+  },
+  th: {
+    borderBottom: '2px solid #dee2e6',
+    padding: '12px',
+    textAlign: 'left',
+    backgroundColor: '#f8f9fa'
+  },
+  td: {
+    borderBottom: '1px solid #dee2e6',
+    padding: '12px',
+    textAlign: 'left',
+  }
+};
 
 export default GradesView;

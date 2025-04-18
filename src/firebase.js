@@ -1,11 +1,10 @@
-// src/firebase.js
-
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth"; // <--- AÑADE ESTA LÍNEA
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAfqCmeSruCGSPObmCmUpayOtYroHRyZPI",
+    apiKey: "AIzaSyAfqCmeSruCGSPObmCmUpayOtYroHRyZPI", // Reemplaza si usas variables de entorno
     authDomain: "proyecto-react-9cbc3.firebaseapp.com",
     projectId: "proyecto-react-9cbc3",
     storageBucket: "proyecto-react-9cbc3.firebasestorage.app",
@@ -15,6 +14,26 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app); // <--- AÑADE ESTA LÍNEA para inicializar Auth
+const auth = getAuth(app);
+const functions = getFunctions(app); // Puedes especificar la región si es necesario, ej: getFunctions(app, 'us-central1');
 
-export { db, auth }; // <--- MODIFICA ESTA LÍNEA para exportar también 'auth'
+// Conecta a los emuladores SOLO si estamos en localhost
+if (window.location.hostname === "localhost") {
+  console.warn("MODO LOCAL: Conectando a Firebase Emulators...");
+  // Usa los puertos por defecto o los que configuraste
+  try {
+    connectFirestoreEmulator(db, 'localhost', 8080);
+    console.log("Firestore Emulator conectado en puerto 8080");
+  } catch (e) { console.error("Error conectando Firestore Emulator:", e); }
+  try {
+    // Nota: Para Auth, el protocolo http:// es importante
+    connectAuthEmulator(auth, 'http://localhost:9099');
+    console.log("Auth Emulator conectado en puerto 9099");
+  } catch (e) { console.error("Error conectando Auth Emulator:", e); }
+  try {
+    connectFunctionsEmulator(functions, 'localhost', 5001);
+    console.log("Functions Emulator conectado en puerto 5001");
+  } catch (e) { console.error("Error conectando Functions Emulator:", e); }
+}
+
+export { db, auth, functions };

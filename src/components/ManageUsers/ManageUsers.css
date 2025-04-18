@@ -1,136 +1,166 @@
 .manage-users-container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 900px; 
-    margin: auto;
-    position: relative; 
-    margin-top: 60px; 
-  }
-  
-  .manage-users-back-button {
-    position: absolute;
-    top: -40px; 
-    left: 0px; 
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.4); 
-    text-decoration: none;
-    font-size: 14px;
-    padding: 8px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.2s; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    z-index: 10;
-  }
-  .manage-users-back-button:hover {
-    background-color: rgba(0, 0, 0, 0.6); 
-    transform: translateY(-1px); 
-  }
-  .manage-users-back-button:active {
-    background-color: rgba(0, 0, 0, 0.7); 
-    transform: translateY(0); 
-  }
-  
-  .manage-users-header {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    gap: 10px;
-    margin-bottom: 30px; 
-    width: 100%;
-  }
-  
-  .manage-users-header h1 {
-    font-size: 26px; 
-    font-weight: bold;
-    color: #fff; 
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
-    margin: 0; 
-  }
-  
-  .manage-users-content {
-    display: flex;
-    justify-content: space-around; 
-    width: 100%;
-    gap: 30px; 
-  }
-  
-  .manage-users-modify-section, 
-  .manage-users-create-section {
-    background-color: rgba(255, 255, 255, 0.85); 
-    padding: 30px; 
-    border-radius: 10px;
-    width: 45%; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-  }
-  
-  .manage-users-modify-section h2, 
-  .manage-users-create-section h2 {
-    font-size: 20px;
-    margin-top: 0; 
-    margin-bottom: 25px; 
-    color: #333; 
-    text-align: center;
-    border-bottom: 1px solid #ddd; 
-    padding-bottom: 10px;
-  }
-  
-  .manage-users-modify-section ul, 
-  .manage-users-create-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; 
-  }
-  
-  .manage-users-modify-section li, 
-  .manage-users-create-section li {
-    font-size: 18px;
-    margin-bottom: 18px; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #222;
-    padding: 10px 15px; 
-    background-color: #f9f9f9; 
-    border-radius: 5px;
-    cursor: pointer; 
-    transition: background-color 0.2s, box-shadow 0.2s;
-  }
-  .manage-users-modify-section li:hover, 
-  .manage-users-create-section li:hover {
-      background-color: #efefef;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
-  }
-  
-  .manage-users-icon {
-    font-size: 22px;
-    cursor: pointer;
-    color: #555; 
-    font-weight: bold;
-    margin-left: 10px; 
-  }
-  
-  @media (max-width: 768px) {
-      .manage-users-content {
-          flex-direction: column; 
-          width: 90%;
-          gap: 25px;
-      }
-      .manage-users-modify-section, 
-      .manage-users-create-section {
-          width: 100%; 
-      }
-       .manage-users-container {
-          padding: 15px;
-          margin-top: 70px; 
-      }
-      .manage-users-header h1 {
-          font-size: 22px;
-      }
-  }
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  margin-top: 60px;
+}
+
+.manage-users-back-button {
+  position: absolute;
+  top: -40px;
+  left: 0px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  z-index: 10;
+}
+.manage-users-back-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  transform: translateY(-1px);
+}
+.manage-users-back-button:active {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateY(0);
+}
+
+.manage-users-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.manage-users-header h1 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  margin: 0;
+}
+
+.manage-users-content {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 30px;
+}
+
+.manage-users-modify-section,
+.manage-users-create-section {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 10px;
+  width: 45%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.manage-users-modify-section h2,
+.manage-users-create-section h2 {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.manage-users-modify-section ul,
+.manage-users-create-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.manage-users-modify-section li,
+.manage-users-create-section li {
+  font-size: 18px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #222;
+  padding: 10px 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.manage-users-modify-section li:hover,
+.manage-users-create-section li:hover {
+    background-color: #efefef;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.manage-users-icon {
+  font-size: 22px;
+  cursor: pointer;
+  color: #555;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: rgba(255, 218, 221, 0.9);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.success-message {
+  color: #155724;
+  background-color: rgba(212, 237, 218, 0.9);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.loading-message {
+  color: #004085;
+  background-color: rgba(204, 229, 255, 0.9);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 1px solid rgba(0, 64, 133, 0.3);
+}
+
+@media (max-width: 768px) {
+    .manage-users-content {
+        flex-direction: column;
+        width: 90%;
+        gap: 25px;
+    }
+    .manage-users-modify-section,
+    .manage-users-create-section {
+        width: 100%;
+    }
+     .manage-users-container {
+        padding: 15px;
+        margin-top: 70px;
+    }
+    .manage-users-header h1 {
+        font-size: 22px;
+    }
+}
