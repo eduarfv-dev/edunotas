@@ -40,11 +40,11 @@ EDUNOTAS es una aplicación construida con React.js que se conecta a servicios d
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone https://github.com/eduarfv-dev/edunotas.git)
+    git clone https://github.com/eduarfv-dev/edunotas.git
     ```
 2.  **Navegar a la carpeta del proyecto:**
     ```bash
-    cd edunotas 
+    cd programasena 
     ```
 3.  **Instalar dependencias:**
     ```bash
