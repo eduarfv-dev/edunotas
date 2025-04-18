@@ -1,6 +1,6 @@
 # EDUNOTAS - Plataforma de Notas Escolares
 
-Plataforma web simple para la gestión de calificaciones escolares, desarrollada como proyecto educativo. Permite la interacción de tres roles: Administrador, Profesor y Estudiante.
+Plataforma web para la gestión de calificaciones escolares, Permite la interacción de tres roles: Administrador, Profesor y Estudiante.
 
 ## Descripción
 
