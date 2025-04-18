@@ -1,0 +1,111 @@
+.grades-display-container {
+    width: 100%;
+    max-width: 900px; 
+    margin: auto; 
+    padding: 20px;
+    position: relative; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .grades-back-button {
+    position: absolute;
+    top: 25px; 
+    left: 25px; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+  
+  .grades-back-button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .grades-content {
+    background-color: rgba(255, 255, 255, 0.85); 
+    padding: 30px 40px; 
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-top: 60px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  
+  .grades-content h2 {
+    margin-bottom: 25px; 
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .grades-search-container {
+    margin-bottom: 30px; 
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    width: 100%; 
+    justify-content: center; 
+  }
+  
+  .grades-search-container select, 
+  .grades-search-container .grades-search-button { 
+    padding: 10px 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .grades-search-container select {
+    min-width: 200px; 
+  }
+  
+  .grades-search-container .grades-search-button {
+    background-color: #777;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .grades-search-container .grades-search-button:hover {
+      background-color: #666;
+  }
+  
+  
+  .grades-table-wrapper { 
+      width: 100%;
+      overflow-x: auto; 
+  }
+  
+  
+  .grades-table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; 
+  }
+  
+  .grades-table-wrapper th, 
+  .grades-table-wrapper td {
+    border: 1px solid #ddd; 
+    padding: 12px 10px; 
+    text-align: center;
+    font-size: 14px; 
+  }
+  
+  .grades-table-wrapper th {
+    background-color: #e9e9e9;
+    color: #333;
+    font-weight: bold;
+  }

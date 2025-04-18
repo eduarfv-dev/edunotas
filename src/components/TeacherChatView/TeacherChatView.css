@@ -1,0 +1,62 @@
+.teacher-chat-container {
+    width: 100%;
+    max-width: 800px; 
+    margin: auto; 
+    padding: 20px;
+    position: relative; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .teacher-chat-back-button {
+    position: absolute;
+    top: -40px; 
+    left: 0px; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-flex; 
+    align-items: center;
+    transition: background-color 0.3s;
+    z-index: 10; 
+  }
+  .teacher-chat-back-button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .teacher-chat-content {
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 40px; 
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 300px; 
+  }
+  
+  
+  .teacher-chat-content h1 {
+    margin-top: 0; 
+    margin-bottom: 30px;
+    font-size: 26px; 
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .teacher-chat-placeholder {
+      color: #555;
+      font-style: italic;
+      margin-top: 20px;
+  }
+  .teacher-chat-placeholder p {
+      margin: 8px 0;
+  }

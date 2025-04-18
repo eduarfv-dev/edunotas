@@ -1,0 +1,113 @@
+.teacher-grades-display-container {
+    width: 100%;
+    max-width: 950px; 
+    margin: auto; 
+    padding: 20px;
+    position: relative; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .teacher-grades-back-button {
+    position: absolute;
+    top: 25px; 
+    left: 25px; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+    z-index: 10; 
+  }
+  
+  .teacher-grades-back-button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .teacher-grades-search-container {
+    margin-top: 60px; 
+    margin-bottom: 25px; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 10px;
+    flex-wrap: wrap; 
+    width: 100%;
+    padding: 15px; 
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .teacher-grades-search-container select, 
+  .teacher-grades-search-button {
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    background-color: #fff; 
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 150px; 
+  }
+  .teacher-grades-search-container select:disabled {
+      background-color: #eee;
+      cursor: not-allowed;
+  }
+  
+  
+  .teacher-grades-search-button {
+    background-color: #617881; 
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  .teacher-grades-search-button:hover {
+      background-color: #a8b8be;
+  }
+  
+  
+  .teacher-grades-table-container { 
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 25px 30px; 
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center; 
+  }
+  
+  .teacher-grades-table-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .teacher-grades-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px; 
+  }
+  
+  .teacher-grades-table-container th, 
+  .teacher-grades-table-container td {
+    border: 1px solid #ccc; 
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .teacher-grades-table-container th {
+    background-color: #e9e9e9; 
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .teacher-grades-table-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9; 
+  }

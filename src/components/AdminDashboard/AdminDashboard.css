@@ -1,0 +1,121 @@
+.admin-dashboard-container {
+    background-color: rgba(238, 238, 238, 0.85); 
+    padding: 50px 30px; 
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 700px; 
+    width: 90%;
+    position: relative; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-header {
+    margin-bottom: 25px; 
+    font-size: 18px;
+    color: #333; 
+  }
+  
+  .admin-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px; 
+    color: #111; 
+  }
+  
+  .admin-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    width: 100%; 
+    max-width: 500px; 
+    margin-bottom: 45px; 
+  }
+  
+  .admin-button-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    width: 100%; 
+    background-color: #fff; 
+    padding: 10px 20px; 
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  }
+  
+  .admin-button-with-icon i {
+    font-size: 26px; 
+    color: #555;
+    flex-shrink: 0; 
+  }
+  
+  .admin-button-with-icon button {
+    flex-grow: 1; 
+    padding: 15px 20px; 
+    border: none;
+    border-radius: 25px;
+    background-color: transparent; 
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+    text-align: left; 
+  }
+  
+  .admin-button-with-icon:hover {
+      background-color: #f5f5f5; 
+  }
+  .admin-button-with-icon:hover button {
+    color: #0e688eb7; 
+  }
+  .admin-button-with-icon:hover i {
+    color: #0e688eb7; 
+  }
+  
+  .admin-profile {
+    position: absolute;
+    top: 15px;  
+    right: 15px; 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.7); 
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  
+  .admin-profile img {
+    width: 40px;  
+    height: 40px; 
+    border-radius: 50%;
+    border: 2px solid #fff; 
+  }
+  
+  .admin-profile span {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+  }
+  
+  .admin-logout-button {
+    margin-top: 15px; 
+    padding: 10px 25px; 
+    background-color: #777; 
+    color: white;
+    border: none; 
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    align-self: center; 
+  }
+  
+  .admin-logout-button:hover {
+    background-color: #666;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
