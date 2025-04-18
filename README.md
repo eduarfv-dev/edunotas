@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# EDUNOTAS - Plataforma de Notas Escolares
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Plataforma web simple para la gestión de calificaciones escolares, desarrollada como proyecto educativo. Permite la interacción de tres roles: Administrador, Profesor y Estudiante.
 
-## Available Scripts
+## Descripción
 
-In the project directory, you can run:
+EDUNOTAS es una aplicación construida con React.js que se conecta a servicios de Firebase para la autenticación de usuarios, almacenamiento de datos (Firestore) y despliegue (Hosting).
 
-### `npm start`
+## Características Principales (Implementadas / En Desarrollo)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*   Autenticación de usuarios por correo y contraseña (Firebase Auth).
+*   Sistema de roles (Administrador, Profesor, Estudiante) leído desde Firestore.
+*   Redirección a dashboards específicos según el rol.
+*   **[Profesor]** Registro/Actualización de calificaciones ("Nota 1", "Nota 2", "Nota 3") para estudiantes en cursos asignados (Firestore).
+*   **[Profesor]** Visualización de cursos asignados (Leído desde Firestore).
+*   **[Profesor]** Visualización de estudiantes inscritos por curso (Leído desde Firestore).
+*   **[Estudiante]** Dashboard básico.
+*   **[Admin]** Dashboard básico.
+*   (Funcionalidades como Ver Notas (Estudiante/Profesor), Gestión de Usuarios/Cursos (Admin), Chat, Foro están planificadas o en desarrollo).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologías Utilizadas
 
-### `npm test`
+*   **Frontend:** React.js (v19+)
+*   **Backend & Infraestructura:** Firebase
+    *   Firebase Authentication (Email/Password)
+    *   Firebase Firestore (Base de Datos NoSQL)
+    *   Firebase Hosting (Despliegue Web)
+*   **Estilos:** CSS Básico
+*   **Build Tool:** Create React App (react-scripts v5+)
+*   **Gestor de Paquetes:** npm
+*   **Control de Versiones:** Git / GitHub
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Requisitos Previos
 
-### `npm run build`
+*   **Node.js:** Versión LTS reciente (v18 o v20 recomendado). Verificar con `node -v`. (Configuración de OpenSSL manejada en `package.json`).
+*   **npm:** Incluido con Node.js (`npm -v`).
+*   **Firebase CLI:** Necesario para desplegar. Instalar globalmente: `npm install -g firebase-tools`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Instalación
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/eduarfv-dev/edunotas.git)
+    ```
+2.  **Navegar a la carpeta del proyecto:**
+    ```bash
+    cd edunotas 
+    ```
+3.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Configuración de Firebase
 
-### `npm run eject`
+1.  **Crear/Usar Proyecto Firebase:** Necesitas un proyecto en [https://console.firebase.google.com/](https://console.firebase.google.com/).
+2.  **Registrar Aplicación Web:** Dentro del proyecto Firebase -> Configuración del proyecto (⚙️) -> General -> Tus apps -> Añadir aplicación -> Web (`</>`).
+3.  **Obtener Configuración SDK:** Copia el objeto `firebaseConfig` que te proporciona Firebase después de registrar la app.
+4.  **Crear Archivo `.env`:**
+    *   En la **raíz** de tu proyecto clonado, crea un archivo llamado `.env`.
+    *   **IMPORTANTE:** Asegúrate de que `.env` esté listado en tu archivo `.gitignore`.
+    *   Pega tu configuración en `.env` usando el prefijo `REACT_APP_`:
+      ```plaintext
+      # .env
+      REACT_APP_FIREBASE_API_KEY=TU_API_KEY_AQUI
+      REACT_APP_FIREBASE_AUTH_DOMAIN=TU_AUTH_DOMAIN_AQUI
+      REACT_APP_FIREBASE_PROJECT_ID=TU_PROJECT_ID_AQUI
+      REACT_APP_FIREBASE_STORAGE_BUCKET=TU_STORAGE_BUCKET_AQUI
+      REACT_APP_FIREBASE_MESSAGING_SENDER_ID=TU_MESSAGING_SENDER_ID_AQUI
+      REACT_APP_FIREBASE_APP_ID=TU_APP_ID_AQUI
+      # REACT_APP_FIREBASE_MEASUREMENT_ID=TU_MEASUREMENT_ID_AQUI (Opcional)
+      ```
+    *   *(El archivo `src/firebase.js` ya está configurado para leer estas variables).*
+5.  **Configurar Servicios Firebase:**
+    *   **Authentication:** Habilita "Correo electrónico/Contraseña". Crea usuarios de prueba (admin, profesor, estudiante) con correos y contraseñas. Anota sus UIDs.
+    *   **Firestore:** Crea la base de datos.
+        *   Crea la colección `usuarios`. Añade documentos para cada usuario de Auth, usando su **UID como ID del documento** y asegurándote de incluir un campo `role` (`admin`, `teacher`, `student`) y `displayName` (o `firstName`/`lastName`).
+        *   Crea la colección `cursos`. Añade documentos de curso, asegurándote de incluir `teacherId` (UID del profesor) y `studentIds` (array con UIDs de estudiantes).
+        *   Configura las **Reglas de Seguridad** (puedes usar las "equilibradas" que te proporcioné).
+        *   La colección `grades` se creará automáticamente al guardar la primera nota.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Ejecución (Modo Desarrollo)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1.  Asegúrate de tener el archivo `.env` configurado en la raíz.
+2.  Ejecuta en la terminal desde la raíz del proyecto:
+    ```bash
+    npm start
+    ```
+3.  La aplicación se abrirá en `http://localhost:3000`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Build (Producción)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm run build
+Los archivos optimizados se generan en la carpeta build.
+Despliegue (Firebase Hosting)
+Inicia Sesión en Firebase (si es necesario):
+firebase login
+Inicializa Firebase Hosting (si es la primera vez en esta carpeta):
+firebase init hosting
+Selecciona tu proyecto Firebase.
+Directorio público: build.
+Configura como SPA: Yes.
+GitHub: No.
+Genera el Build de Producción (si hiciste cambios):
+npm run build
+Despliega:
+firebase deploy --only hosting.
+La URL de despliegue será mostrada al finalizar.
+Licencia
+Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
