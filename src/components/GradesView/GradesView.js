@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase'; 
+import { db } from '../../firebase';
 import { collection, query, where, getDocs, doc, getDoc, orderBy, Timestamp } from "firebase/firestore";
+import './GradesView.css';
+
 function GradesView({ studentUid, onBack }) {
 
   const [grades, setGrades] = useState([]);
-  const [courseNames, setCourseNames] = useState({}); 
+  const [courseNames, setCourseNames] = useState({});
+  const [averageGrade, setAverageGrade] = useState(null);
+  const [courseAverages, setCourseAverages] = useState({}); // <-- NUEVO ESTADO PARA PROMEDIOS POR CURSO
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,6 +22,8 @@ function GradesView({ studentUid, onBack }) {
     const fetchGradesAndCourses = async () => {
       setIsLoading(true);
       setError(null);
+      setAverageGrade(null);
+      setCourseAverages({}); // Reiniciar promedios por curso
       console.log(`Buscando notas para el estudiante UID: ${studentUid}`);
 
       try {
@@ -25,23 +31,79 @@ function GradesView({ studentUid, onBack }) {
         const q = query(
             gradesRef,
             where("studentId", "==", studentUid),
-            orderBy("gradeDate", "desc")
+            orderBy("gradeDate", "desc") // Puedes ajustar el orden si prefieres
         );
         const gradesSnapshot = await getDocs(q);
 
         const fetchedGrades = [];
         const courseIdsToFetch = new Set();
+        const gradesByCourse = {}; // Para agrupar notas por curso
 
         gradesSnapshot.forEach((doc) => {
           const gradeData = { id: doc.id, ...doc.data() };
+          // Asegúrate de que 'observation' se obtiene. Si no existe, será undefined.
           fetchedGrades.push(gradeData);
           if (gradeData.courseId) {
             courseIdsToFetch.add(gradeData.courseId);
+            // Agrupar notas por curso
+            if (!gradesByCourse[gradeData.courseId]) {
+              gradesByCourse[gradeData.courseId] = [];
+            }
+            gradesByCourse[gradeData.courseId].push(gradeData);
           }
         });
 
         console.log("Notas encontradas:", fetchedGrades);
 
+        // --- Calcular Promedio General ---
+        if (fetchedGrades.length > 0) {
+          let sum = 0;
+          let count = 0;
+          fetchedGrades.forEach(grade => {
+            const score = parseFloat(grade.score);
+            if (!isNaN(score)) {
+              sum += score;
+              count++;
+            } else {
+              console.warn(`La nota con ID ${grade.id} no es un número válido:`, grade.score);
+            }
+          });
+          if (count > 0) {
+            const avg = sum / count;
+            setAverageGrade(avg.toFixed(2));
+            console.log(`Promedio general calculado: ${avg.toFixed(2)}`);
+          } else {
+             setAverageGrade(0);
+          }
+        } else {
+            setAverageGrade(0);
+        }
+        // --- Fin Calcular Promedio General ---
+
+        // --- Calcular Promedios por Curso ---
+        const calculatedCourseAverages = {};
+        for (const courseId in gradesByCourse) {
+          let courseSum = 0;
+          let courseCount = 0;
+          gradesByCourse[courseId].forEach(grade => {
+            const score = parseFloat(grade.score);
+            if (!isNaN(score)) {
+              courseSum += score;
+              courseCount++;
+            }
+          });
+          if (courseCount > 0) {
+            calculatedCourseAverages[courseId] = (courseSum / courseCount).toFixed(2);
+          } else {
+            calculatedCourseAverages[courseId] = 'N/A'; // O 0, o como prefieras manejarlo
+          }
+        }
+        setCourseAverages(calculatedCourseAverages);
+        console.log("Promedios por curso calculados:", calculatedCourseAverages);
+        // --- Fin Calcular Promedios por Curso ---
+
+
+        // --- Obtener Nombres de Cursos ---
         let namesMap = {};
         if (courseIdsToFetch.size > 0) {
           console.log("Buscando nombres para los cursos IDs:", Array.from(courseIdsToFetch));
@@ -59,6 +121,7 @@ function GradesView({ studentUid, onBack }) {
           console.log("Nombres de cursos mapeados:", namesMap);
           setCourseNames(namesMap);
         }
+        // --- Fin Obtener Nombres de Cursos ---
 
         setGrades(fetchedGrades);
 
@@ -87,96 +150,93 @@ function GradesView({ studentUid, onBack }) {
 
 
   if (isLoading) {
+    // Usamos las clases CSS en lugar de styles.container y styles.backButton
     return (
-      <div className="grades-view-container" style={styles.container}>
-        <h2>Mis Calificaciones</h2>
-        <p>Cargando calificaciones...</p>
-        <button onClick={onBack} style={styles.backButton}>{"< Regresar"}</button>
+      <div className="grades-display-container"> {/* Cambiado de styles.container */}
+        <div className="grades-content"> {/* Añadido contenedor para centrar contenido */}
+            <h2>Mis Calificaciones</h2>
+            <p>Cargando calificaciones...</p>
+        </div>
+        <button onClick={onBack} className="grades-back-button">{"< Regresar"}</button> {/* Cambiado de styles.backButton */}
       </div>
     );
   }
 
   if (error) {
+     // Usamos las clases CSS
     return (
-      <div className="grades-view-container" style={styles.container}>
-        <h2>Mis Calificaciones</h2>
-        <p style={{ color: 'red' }}>{error}</p>
-        <button onClick={onBack} style={styles.backButton}>{"< Regresar"}</button>
+      <div className="grades-display-container"> {/* Cambiado de styles.container */}
+         <div className="grades-content"> {/* Añadido contenedor */}
+            <h2>Mis Calificaciones</h2>
+            <p style={{ color: 'red' }}>{error}</p> {/* Mantenemos el color rojo para el error */}
+         </div>
+        <button onClick={onBack} className="grades-back-button">{"< Regresar"}</button> {/* Cambiado de styles.backButton */}
       </div>
     );
   }
 
+  // Usamos las clases CSS para el contenedor principal, botón, tabla, etc.
   return (
-    <div className="grades-view-container" style={styles.container}>
-      <button onClick={onBack} style={styles.backButton}>{"< Regresar"}</button>
-      <h2>Mis Calificaciones</h2>
+    <div className="grades-display-container"> {/* Cambiado de styles.container */}
+      <button onClick={onBack} className="grades-back-button">{"< Regresar"}</button> {/* Cambiado de styles.backButton */}
+      <div className="grades-content"> {/* Contenedor para el contenido principal */}
+          <h2>Mis Calificaciones</h2>
 
-      {grades.length === 0 ? (
-        <p>Aún no tienes calificaciones registradas.</p>
-      ) : (
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>Curso</th>
-              <th style={styles.th}>Tarea/Evaluación</th>
-              <th style={styles.th}>Nota</th>
-              <th style={styles.th}>Fecha Registro</th>
-            </tr>
-          </thead>
-          <tbody>
-            {grades.map((grade) => (
-              <tr key={grade.id}>
-                <td style={styles.td}>{courseNames[grade.courseId] || 'Cargando...'}</td>
-                <td style={styles.td}>{grade.assignmentName}</td>
-                <td style={styles.td}>{grade.score}</td>
-                <td style={styles.td}>{formatDate(grade.gradeDate)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          {/* --- Mostrar Promedio General --- */}
+          {averageGrade !== null && (
+            <p style={{ fontWeight: 'bold', marginBottom: '5px', fontSize: '1.1em' }}>
+              Promedio General: {averageGrade}
+            </p>
+          )}
+          {/* --- Fin Mostrar Promedio General --- */}
+
+          {/* --- Mostrar Promedios por Curso --- */}
+          {Object.keys(courseAverages).length > 0 && (
+            <div style={{ marginBottom: '20px', width: '100%', borderTop: '1px solid #eee', paddingTop: '15px', marginTop: '15px' }}>
+              <h4 style={{ marginBottom: '10px' }}>Promedios por Curso:</h4>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {Object.entries(courseAverages).map(([courseId, avg]) => (
+                  <li key={courseId} style={{ marginBottom: '5px' }}>
+                    <strong>{courseNames[courseId] || `Curso ID: ${courseId.substring(0,4)}...`}:</strong> {avg}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {/* --- Fin Mostrar Promedios por Curso --- */}
+
+
+          {grades.length === 0 ? (
+            <p>Aún no tienes calificaciones registradas.</p>
+          ) : (
+            <div className="grades-table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Curso</th>
+                    <th>Tarea/Evaluación</th>
+                    <th>Nota</th>
+                    <th>Observación</th> {/* <-- NUEVA COLUMNA */}
+                    <th>Fecha Registro</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {grades.map((grade) => (
+                    <tr key={grade.id}>
+                      <td>{courseNames[grade.courseId] || 'Cargando...'}</td>
+                      <td>{grade.assignmentName}</td>
+                      <td>{grade.score}</td>
+                      <td>{grade.observation || '-'}</td> {/* <-- MOSTRAR OBSERVACIÓN */}
+                      <td>{formatDate(grade.gradeDate)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+      </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    padding: '30px',
-    borderRadius: '10px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    width: '80%',
-    maxWidth: '800px',
-    margin: '20px auto',
-    position: 'relative'
-  },
-  backButton: {
-    position: 'absolute',
-    top: '15px',
-    left: '15px',
-    cursor: 'pointer',
-    background: 'none',
-    border: 'none',
-    color: '#007bff',
-    textDecoration: 'underline',
-    fontSize: '0.9em'
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginTop: '20px',
-  },
-  th: {
-    borderBottom: '2px solid #dee2e6',
-    padding: '12px',
-    textAlign: 'left',
-    backgroundColor: '#f8f9fa'
-  },
-  td: {
-    borderBottom: '1px solid #dee2e6',
-    padding: '12px',
-    textAlign: 'left',
-  }
-};
 
 export default GradesView;
