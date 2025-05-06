@@ -17,7 +17,7 @@ function LoginForm({ onForgotPassword, onLoginSuccess }) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const authUser = userCredential.user;
-      console.log("Inicio de sesión exitoso con Firebase:", authUser);
+      console.log("Inicio de sesión exitoso con Firebase:", authUser); 
       if (onLoginSuccess) {
         onLoginSuccess(authUser);
       }

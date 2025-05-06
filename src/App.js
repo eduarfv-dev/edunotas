@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { db, auth } from './firebase';
 import { doc, getDoc } from "firebase/firestore";
+
 import LoginForm from './components/LoginForm/LoginForm';
-import PasswordRecoveryForm from './components/PasswordRecoveryForm/PasswordRecoveryForm';
-import StudentDashboard from './components/StudentDashboard/StudentDashboard';
-import GradesView from './components/GradesView/GradesView';
-import TeacherGradesView from './components/TeacherGradesView/TeacherGradesView';
-import StudentForum from './components/StudentForum/StudentForum';
-import ChatWithTeacher from './components/ChatWithTeacher/ChatWithTeacher';
-import TeacherChatView from './components/TeacherChatView/TeacherChatView';
-import TeacherDashboard from './components/TeacherDashboard/TeacherDashboard';
-import RegisterGrades from './components/RegisterGrades/RegisterGrades';
-import ManageCourseContent from './components/ManageCourseContent/ManageCourseContent';
-import TeacherForum from './components/TeacherForum/TeacherForum';
-import AdminDashboard from './components/AdminDashboard/AdminDashboard';
-import ManageUsers from './components/ManageUsers/ManageUsers';
-import ManageCoursesAdmin from './components/ManageCoursesAdmin/ManageCoursesAdmin';
-import ReportsAndStats from './components/ReportsAndStats/ReportsAndStats';
+import PasswordRecoveryForm from './components/LoginForm/FormularioRecuperarClave/FormularioRecuperarClave';
+
+import StudentDashboard from './components/Estudiante/PanelEstudiante/PanelEstudiante';
+import GradesView from './components/Estudiante/VerNotasEstudiante/VerNotasEstudiante';
+import StudentForum from './components/Estudiante/ForoEstudiante/ForoEstudiante';
+import ChatWithTeacher from './components/Estudiante/ChatConProfesor/ChatConProfesor';
+
+import TeacherDashboard from './components/Profesor/PanelProfesor/PanelProfesor';
+import TeacherGradesView from './components/Profesor/VerNotasProfesor/VerNotasProfesor';
+import RegisterGrades from './components/Profesor/RegistrarNotas/RegistrarNotas';
+import ManageCourseContent from './components/Profesor/GestionarContenidoCurso/GestionarContenidoCurso';
+import TeacherForum from './components/Profesor/ForoProfesor/ForoProfesor';
+import TeacherChatView from './components/Profesor/ChatProfesorVista/ChatProfesorVista';
+
+import AdminDashboard from './components/Administrador/PanelAdmin/PanelAdmin';
+import ManageUsers from './components/Administrador/GestionarUsuarios/GestionarUsuarios';
+import ManageCoursesAdmin from './components/Administrador/GestionarCursosAdmin/GestionarCursosAdmin'; 
+import ReportsAndStats from './components/Administrador/ReportesEstadisticas/ReportesEstadisticas';
+
 import fondoBackground from './assets/fondo.png';
-// import { signOut } from "firebase/auth";
 
 function App() {
   const [currentView, setCurrentView] = useState('login');
@@ -40,62 +44,37 @@ function App() {
   };
 
   const handleLoginSuccess = async (authUser) => {
-    if (!authUser || !authUser.uid) {
-      console.error("handleLoginSuccess llamado sin un usuario de autenticación válido.");
-      setAuthError("Error interno al procesar el inicio de sesión.");
-      return;
-    }
     setIsLoading(true);
     setAuthError('');
-    console.log("Usuario autenticado por Firebase:", authUser.uid, authUser.email);
-
     try {
+      console.log("Usuario autenticado:", authUser.uid);
       const userDocRef = doc(db, "usuarios", authUser.uid);
       const userDocSnap = await getDoc(userDocRef);
 
       if (userDocSnap.exists()) {
-        const firestoreUserData = userDocSnap.data();
-        console.log("Datos de Firestore encontrados:", firestoreUserData);
+        const userDetails = { uid: authUser.uid, ...userDocSnap.data() };
+        setUserData(userDetails);
+        console.log("Datos del usuario:", userDetails);
 
-        const completeUserData = {
-          uid: authUser.uid,
-          email: authUser.email || firestoreUserData.email,
-          role: firestoreUserData.role || null,
-          displayName: firestoreUserData.displayName || authUser.email,
-        };
-
-        if (!completeUserData.role) {
-             console.error(`¡El usuario ${authUser.uid} no tiene un campo 'role' definido en Firestore!`);
-             setAuthError("Error: No se pudo determinar el rol del usuario. Contacte al administrador.");
-             setCurrentView('login');
-             setIsLoading(false);
-             return;
-        }
-
-        setUserData(completeUserData);
-
-        const role = completeUserData.role;
-        if (role === 'student') {
+        if (userDetails.role === 'student') {
           setCurrentView('student');
-        } else if (role === 'teacher') {
+        } else if (userDetails.role === 'teacher') {
           setCurrentView('teacher');
-        } else if (role === 'admin') {
+        } else if (userDetails.role === 'admin') {
           setCurrentView('admin');
         } else {
-          console.warn(`Rol desconocido en Firestore para el usuario ${authUser.uid}: ${role}`);
-          setAuthError("Rol de usuario no reconocido.");
+          console.error("Rol de usuario desconocido:", userDetails.role);
+          setAuthError("Rol de usuario no reconocido. Contacte al administrador.");
           setCurrentView('login');
         }
-
       } else {
-        console.error(`¡No se encontraron datos en Firestore para el usuario autenticado ${authUser.uid}! Asegúrate de que el ID del documento en 'usuarios' coincida con el UID de Authentication.`);
-        setAuthError("Error: Su cuenta existe pero no está registrada correctamente en la plataforma. Contacte al administrador.");
+        console.error("No se encontró el documento del usuario en Firestore.");
+        setAuthError("No se pudieron cargar los datos del usuario. Contacte al administrador.");
         setCurrentView('login');
       }
-
     } catch (error) {
-      console.error("Error al obtener datos del usuario desde Firestore:", error);
-      setAuthError("Ocurrió un error inesperado al cargar los datos del usuario.");
+      console.error("Error al obtener datos del usuario:", error);
+      setAuthError("Error al cargar la información del usuario.");
       setCurrentView('login');
     } finally {
       setIsLoading(false);
@@ -103,15 +82,17 @@ function App() {
   };
 
   const handleLogout = async () => {
-    console.log("Cerrando sesión...");
-    setUserData(null);
-    setCurrentView('login');
-    setAuthError('');
+    setIsLoading(true);
     try {
-      await auth.signOut();
-      console.log("Usuario deslogueado de Firebase Auth.");
+      await auth.signOut(); 
+      setUserData(null);
+      setCurrentView('login');
+      setAuthError('');
     } catch (error) {
-      console.error("Error al desloguear de Firebase Auth:", error);
+      console.error("Error al cerrar sesión:", error);
+      setAuthError("Error al cerrar sesión. Inténtalo de nuevo.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -129,7 +110,7 @@ function App() {
   const showTeacherChat = () => setCurrentView('teacher-chat');
   const showAdminDashboard = () => setCurrentView('admin');
   const showManageUsers = () => setCurrentView('admin-manage-users');
-  const showManageCoursesAdmin = () => setCurrentView('admin-manage-courses');
+  const showManageCoursesAdmin = () => setCurrentView('admin-manage-courses'); 
   const showReports = () => setCurrentView('admin-reports');
 
   const renderContent = () => {
@@ -150,13 +131,13 @@ function App() {
       case 'login':
         return <LoginForm onForgotPassword={showRecoveryForm} onLoginSuccess={handleLoginSuccess} />;
       case 'recovery':
-        return <PasswordRecoveryForm onBack={showLoginForm} />;
+        return <PasswordRecoveryForm onBack={showLoginForm} />; 
 
       case 'student':
         return userData ? <StudentDashboard username={userData.displayName || userData.email} onLogout={handleLogout} onNavigateToGrades={showStudentGrades} onNavigateToForum={showStudentForum} onNavigateToChat={showStudentChat} /> : null;
       case 'grades':
         return userData ? <GradesView
-                              studentUid={userData.uid} // <-- PROP AÑADIDA/CORREGIDA AQUÍ
+                              studentUid={userData.uid} 
                               onBack={showStudentDashboard}
                               /> : null;
       case 'forum':
@@ -171,48 +152,41 @@ function App() {
                             onNavigateToViewGrades={showTeacherViewGrades}
                             onNavigateToRegisterGrades={showTeacherRegisterGrades}
                             onNavigateToManageCourse={showTeacherManageCourse}
-                            onNavigateToChat={showTeacherChat}
                             onNavigateToForum={showTeacherForum}
-                            /> : null;
+                            onNavigateToChat={showTeacherChat}
+                          /> : null;
       case 'teacher-grades':
-          return <TeacherGradesView onBack={showTeacherDashboard} />;
+        return <TeacherGradesView onBack={showTeacherDashboard} />;
       case 'teacher-register-grades':
-          return userData ? <RegisterGrades
-                                teacherUid={userData.uid}
-                                onBack={showTeacherDashboard}
-                                /> : null;
+        return <RegisterGrades onBack={showTeacherDashboard} />;
       case 'teacher-manage-course':
-          return <ManageCourseContent onBack={showTeacherDashboard} />;
-      case 'teacher-chat':
-          return <TeacherChatView onBack={showTeacherDashboard} />;
+        return <ManageCourseContent onBack={showTeacherDashboard} />;
       case 'teacher-forum':
-          return <TeacherForum onBack={showTeacherDashboard} />;
-
+        return <TeacherForum onBack={showTeacherDashboard} />;
+      case 'teacher-chat':
+        return <TeacherChatView onBack={showTeacherDashboard} />;
+      
       case 'admin':
-          return userData ? <AdminDashboard
+        return userData ? <AdminDashboard
                             username={userData.displayName || userData.email}
                             onLogout={handleLogout}
                             onNavigateToManageUsers={showManageUsers}
-                            onNavigateToManageCourses={showManageCoursesAdmin}
+                            onNavigateToManageCourses={showManageCoursesAdmin} 
                             onNavigateToReports={showReports}
-                            /> : null;
+                          /> : null;
       case 'admin-manage-users':
-          return <ManageUsers onBack={showAdminDashboard} />;
+        return <ManageUsers onBack={showAdminDashboard} />;
       case 'admin-manage-courses':
-          return <ManageCoursesAdmin onBack={showAdminDashboard} />;
+        return <ManageCoursesAdmin onBack={showAdminDashboard} />; 
       case 'admin-reports':
-          return <ReportsAndStats onBack={showAdminDashboard} />;
-
+        return <ReportsAndStats onBack={showAdminDashboard} />;
       default:
-        console.warn("Vista desconocida o estado inválido, volviendo a login:", currentView);
-        setUserData(null);
-        setCurrentView('login');
-        return <LoginForm onForgotPassword={showRecoveryForm} onLoginSuccess={handleLoginSuccess}/>;
+        return <LoginForm onForgotPassword={showRecoveryForm} onLoginSuccess={handleLoginSuccess} />;
     }
   };
 
   return (
-    <div className="App" style={appStyle}>
+    <div style={appStyle}>
       {renderContent()}
     </div>
   );

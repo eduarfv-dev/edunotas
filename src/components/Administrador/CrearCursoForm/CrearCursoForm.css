@@ -1,0 +1,128 @@
+.create-course-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 600px; /* Ajusta según necesites */
+  margin-top: 20px; /* Espacio respecto al botón de regresar general */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-course-content h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 22px;
+}
+
+.create-course-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+  font-size: 14px;
+  text-align: left;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box; /* Importante para que el padding no aumente el tamaño */
+}
+
+.form-group textarea {
+  resize: vertical; /* Permite redimensionar verticalmente */
+  min-height: 80px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #0e688eb7;
+  box-shadow: 0 0 5px rgba(14, 104, 142, 0.3);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end; /* Alinea botones a la derecha */
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.form-actions button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.form-actions .submit-button {
+  background-color: #0e688eb7;
+  color: white;
+}
+
+.form-actions .submit-button:hover {
+  background-color: #0b5571;
+}
+
+.form-actions .cancel-button {
+  background-color: #ccc;
+  color: #333;
+}
+
+.form-actions .cancel-button:hover {
+  background-color: #bbb;
+}
+
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #d9534f; /* Rojo */
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+}
+
+.success-message {
+  color: #3c763d; /* Verde */
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+}

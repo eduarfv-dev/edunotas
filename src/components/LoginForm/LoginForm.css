@@ -37,7 +37,6 @@ form h2 {
     pointer-events: none;
 }
 
-/* --- SELECTOR CORREGIDO AQUÍ --- */
 .input-group input[type="text"],
 .input-group input[type="email"],
 .input-group input[type="password"] {
@@ -106,19 +105,17 @@ form h2 {
     text-decoration: underline;
 }
 
-/* --- (Opcional pero recomendado) Estilo para el mensaje de error --- */
 .login-error-message {
     color: #dc3545;
     background-color: rgba(220, 53, 69, 0.1);
     padding: 10px;
-    margin-top: -10px; /* Mueve un poco hacia arriba si hay mucho espacio */
+    margin-top: -10px;
     margin-bottom: 15px;
     border-radius: 5px;
     text-align: center;
     font-size: 0.9em;
     border: 1px solid rgba(220, 53, 69, 0.3);
 }
-
 
 @media(max-width: 991px) {
     form {
@@ -135,22 +132,20 @@ form h2 {
         flex-direction: column;
         align-items: flex-start;
     }
-     .remember a {
+    .remember a {
         margin-top: 10px;
     }
-     .btn-1 {
+    .btn-1 {
         width: 100%;
     }
-     /* Asegúrate que los inputs se vean bien en móvil también */
     .input-group input[type="text"],
     .input-group input[type="email"],
     .input-group input[type="password"] {
-        font-size: 16px; /* Ajusta si es necesario */
-        padding: 15px 10px 15px 45px; /* Ajusta padding si es necesario */
+        font-size: 16px;
+        padding: 15px 10px 15px 45px;
     }
-     .input-group i {
-        font-size: 20px; /* Ajusta icono si es necesario */
-        left: 12px; /* Ajusta posición icono */
+    .input-group i {
+        font-size: 20px;
+        left: 12px;
     }
-
 }

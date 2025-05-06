@@ -1,0 +1,184 @@
+.register-grades-container {
+    display: flex;
+    padding: 20px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px; 
+    margin: auto;
+    margin-top: 60px;
+    gap: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    min-height: 80vh;
+}
+  
+.register-grades-back-button {
+    position: absolute;
+    top: -40px;
+    left: 0px; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s;
+    z-index: 10; 
+}
+.register-grades-back-button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+  
+.register-grades-sidebar {
+    border: 1px solid #ccc; 
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    width: 200px;
+    flex-shrink: 0;
+    height: fit-content;
+}
+  
+.register-grades-sidebar label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+  
+.register-grades-sidebar select, 
+.register-grades-search-button {
+    display: block;
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+  
+.register-grades-search-button {
+    background-color: #617881;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+.register-grades-search-button:hover {
+    background-color: #a8b8be;
+}
+  
+.register-grades-main-content {
+    flex-grow: 1;
+    border: 1px solid #ccc; 
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+  
+.register-grades-main-content h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #333;
+}
+  
+.register-grades-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+  
+.register-grades-table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.register-grades-table-wrapper th, 
+.register-grades-table-wrapper td {
+    border: 1px solid #ccc; 
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 14px;
+}
+  
+.register-grades-table-wrapper th {
+    background-color: #e9e9e9;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+}
+  
+.register-grades-table-wrapper td {
+    background-color: #fff;
+}
+  
+.register-grades-table-wrapper input[type="number"], 
+.register-grades-table-wrapper input[type="text"] {
+    width: 90%;
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 4px;
+}
+.register-grades-table-wrapper input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+.register-grades-table-wrapper input[type="number"]::-webkit-outer-spin-button,
+.register-grades-table-wrapper input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+  
+.register-grades-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+  
+.register-grades-clear-button, 
+.register-grades-save-button {
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.register-grades-clear-button {
+    background-color: #aaa;
+}
+.register-grades-clear-button:hover {
+    background-color: #999;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+  
+.register-grades-save-button {
+    background-color: #5cb85c;
+}
+.register-grades-save-button:hover {
+    background-color: #4cae4c;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+  
+/* Eliminar estilos de profile */
