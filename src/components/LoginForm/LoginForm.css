@@ -13,7 +13,8 @@ form {
     margin: auto;
 }
 
-form h2 {
+/* Cambiado de form h2 a form h1 para que los estilos se apliquen al nuevo H1 */
+form h1 { 
     text-align: center;
     font-size: 30px;
     text-transform: uppercase;
@@ -83,7 +84,7 @@ form h2 {
     gap: 10px;
 }
 
-.remember label {
+.remember label { /* Este estilo podría no ser necesario si las labels son sr-only */
     display: flex;
     align-items: center;
     color: #060404;
@@ -95,13 +96,19 @@ form h2 {
     margin-right: 8px;
 }
 
-.remember a {
+/* Estilo para el botón que parece un enlace */
+.forgot-password-link {
+    background: none;
+    border: none;
     color: #060404;
     font-size: 15px;
     text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit; /* Asegura que use la misma fuente que el resto */
 }
 
-.remember a:hover {
+.forgot-password-link:hover {
     text-decoration: underline;
 }
 
@@ -109,7 +116,7 @@ form h2 {
     color: #dc3545;
     background-color: rgba(220, 53, 69, 0.1);
     padding: 10px;
-    margin-top: -10px;
+    margin-top: -10px; /* Ajusta si es necesario después de quitar el h2 y poner h1 */
     margin-bottom: 15px;
     border-radius: 5px;
     text-align: center;
@@ -125,14 +132,15 @@ form h2 {
 }
 
 @media (max-width: 480px) {
-    form h2 {
+    /* Cambiado de form h2 a form h1 */
+    form h1 {
         font-size: 24px;
     }
     .remember {
         flex-direction: column;
         align-items: flex-start;
     }
-    .remember a {
+    .forgot-password-link { /* Ajustar el enlace/botón en móvil si es necesario */
         margin-top: 10px;
     }
     .btn-1 {
@@ -148,4 +156,17 @@ form h2 {
         font-size: 20px;
         left: 12px;
     }
+}
+
+/* Clase para ocultar elementos visualmente pero mantenerlos para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

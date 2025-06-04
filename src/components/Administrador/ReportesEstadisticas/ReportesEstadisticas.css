@@ -153,3 +153,121 @@
     background-color: #555; 
     transform: translateY(0); 
   }
+
+/* Nuevos estilos para la visualización de datos del reporte */
+.report-data-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%; /* Asegurar que ocupe el ancho disponible */
+  text-align: left; /* Alinear texto a la izquierda para mejor lectura */
+}
+
+.report-data-item {
+  background-color: rgba(249, 249, 249, 0.95); /* Fondo ligeramente transparente */
+  border: 1px solid #ddd;
+  padding: 12px 18px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.report-data-item strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #2c3e50; /* Un color oscuro pero no negro puro */
+  font-size: 1.05em;
+}
+
+.report-data-item div {
+    font-size: 0.95em;
+    color: #34495e; /* Un gris azulado */
+    margin-left: 10px;
+    line-height: 1.4;
+}
+
+.report-data-object {
+  background-color: rgba(249, 249, 249, 0.95);
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 6px;
+  text-align: left; /* Alinear texto a la izquierda */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.report-data-object p {
+  margin: 8px 0;
+  color: #34495e;
+  font-size: 1em;
+  line-height: 1.5;
+}
+.report-data-object p strong {
+  color: #2c3e50;
+  margin-right: 5px;
+}
+
+/* Ajuste para el título del reporte cuando se está en la vista de reporte */
+.reports-content h1.report-view-title { /* Clase específica para el título en la vista de reporte */
+  color: #2c3e50; /* Un color oscuro para el título del reporte */
+  /* Puedes añadir otros estilos si es necesario, como text-shadow: none; */
+}
+
+/* Estilos para los elementos de la lista de reportes y el botón de descarga */
+.report-data-item {
+  display: flex; /* Para alinear el contenido y el botón */
+  justify-content: space-between; /* Espacio entre contenido y botón */
+  align-items: center; /* Centrar verticalmente */
+  /* padding: 10px;  Ya tienes un padding en .report-data-item, puedes ajustarlo si es necesario */
+  /* border: 1px solid #eee; Ya tienes un borde en .report-data-item */
+  /* margin-bottom: 10px; Ya tienes un margin-bottom en .report-data-item */
+  /* border-radius: 4px; Ya tienes un border-radius en .report-data-item */
+  /* background-color: #fff; Ya tienes un background-color en .report-data-item */
+}
+
+.report-item-content {
+  flex-grow: 1; /* Para que el contenido ocupe el espacio disponible */
+  /* Los estilos para div dentro de .report-data-item ya los tienes, asegúrate que se apliquen bien aquí */
+}
+
+.download-excel-button {
+  background-color: #217346; /* Un color verde Excel */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-left: 10px; /* Espacio si el contenido es corto */
+  white-space: nowrap; /* Evita que el texto del botón se divida en múltiples líneas */
+}
+
+.download-excel-button:hover {
+  background-color: #185734;
+}
+
+/* Estilos para el contenedor del objeto de reporte global y su botón de descarga */
+.report-data-object-container {
+  /* padding: 15px; Ya tienes un padding en .report-data-object, puedes ajustarlo */
+  /* border: 1px solid #eee; Ya tienes un borde en .report-data-object */
+  /* border-radius: 4px; Ya tienes un border-radius en .report-data-object */
+  /* background-color: #fff; Ya tienes un background-color en .report-data-object */
+  width: 100%; /* Asegurar que ocupe el ancho */
+  display: flex;
+  flex-direction: column; /* Para que el botón esté debajo del contenido */
+  align-items: center; /* Centrar el botón si el contenido es más ancho */
+}
+
+/* Estilo para el mensaje de éxito (descarga, etc.) */
+.success-message {
+  color: green;
+  background-color: #e6ffed;
+  border: 1px solid #b7ebc3;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-top: 15px; /* Espacio arriba si se muestra después de una acción */
+  margin-bottom: 15px; /* Espacio debajo */
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}

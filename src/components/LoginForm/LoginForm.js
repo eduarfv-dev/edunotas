@@ -17,12 +17,12 @@ function LoginForm({ onForgotPassword, onLoginSuccess }) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const authUser = userCredential.user;
-      console.log("Inicio de sesión exitoso con Firebase:", authUser); 
+      // console.log("Inicio de sesión exitoso con Firebase:", authUser); 
       if (onLoginSuccess) {
         onLoginSuccess(authUser);
       }
     } catch (err) {
-      console.error("Error de inicio de sesión Firebase:", err.code, err.message);
+      // console.error("Error de inicio de sesión Firebase:", err.code, err.message);
       let errorMessage = "Error al iniciar sesión. Inténtalo de nuevo.";
       if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
         errorMessage = "Correo o contraseña incorrectos.";
@@ -40,11 +40,14 @@ function LoginForm({ onForgotPassword, onLoginSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Bienvenido a EDUNOTAS</h2>
-      {error && <p className="login-error-message">{error}</p>}
+    <form onSubmit={handleSubmit} aria-labelledby="login-heading">
+      <h1 id="login-heading">Bienvenido a EDUNOTAS</h1>
+      
+      {error && <p id="login-error-id" className="login-error-message" role="alert">{error}</p>}
+      
       <div className="input-group">
-        <i className='bx bxs-envelope'></i>
+        <label htmlFor="email" className="sr-only">Correo Electrónico</label>
+        <i className='bx bxs-envelope' aria-hidden="true"></i>
         <input
           type="email"
           id="email"
@@ -52,11 +55,15 @@ function LoginForm({ onForgotPassword, onLoginSuccess }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          aria-required="true"
           disabled={loading}
+          aria-describedby={error ? "login-error-id" : undefined}
         />
       </div>
+      
       <div className="input-group">
-        <i className='bx bxs-lock-alt'></i>
+        <label htmlFor="password" className="sr-only">Contraseña</label>
+        <i className='bx bxs-lock-alt' aria-hidden="true"></i>
         <input
           type="password"
           id="password"
@@ -64,21 +71,26 @@ function LoginForm({ onForgotPassword, onLoginSuccess }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          aria-required="true"
           disabled={loading}
+          aria-describedby={error ? "login-error-id" : undefined}
         />
       </div>
+      
       <div className="remember">
-        <span/>
-        <a
-          href="#!"
+        <span/> 
+        <button
+          type="button"
           onClick={(e) => {
-            e.preventDefault();
             if (!loading && onForgotPassword) onForgotPassword();
           }}
+          className="forgot-password-link" 
+          disabled={loading}
         >
           ¿Olvidó su contraseña?
-        </a>
+        </button>
       </div>
+      
       <input
         type="submit"
         className="btn-1"

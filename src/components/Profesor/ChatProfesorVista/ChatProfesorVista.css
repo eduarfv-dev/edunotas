@@ -1,62 +1,254 @@
+/* Estilos existentes para .teacher-chat-container, .teacher-chat-back-button */
 .teacher-chat-container {
     width: 100%;
-    max-width: 800px; 
-    margin: auto; 
+    max-width: 1000px; /* O el ancho que prefieras para el chat */
+    margin: auto;
     padding: 20px;
-    position: relative; 
-    display: flex; 
+    position: relative;
+    display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .teacher-chat-back-button {
+    height: calc(100vh - 100px); /* Ajusta según tu layout general */
+    box-sizing: border-box;
+}
+
+.teacher-chat-back-button {
     position: absolute;
-    top: -40px; 
-    left: 0px; 
-    color: #fff; 
-    background-color: rgba(0, 0, 0, 0.4); 
+    top: -40px; /* O ajusta según tu diseño */
+    left: 0px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.4);
     text-decoration: none;
     font-size: 14px;
     padding: 8px 15px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    display: inline-flex; 
+    display: inline-flex;
     align-items: center;
     transition: background-color 0.3s;
-    z-index: 10; 
-  }
-  .teacher-chat-back-button:hover {
+    z-index: 10;
+}
+.teacher-chat-back-button:hover {
     background-color: rgba(0, 0, 0, 0.6);
-  }
-  
-  .teacher-chat-content {
-    background-color: rgba(255, 255, 255, 0.9); 
-    padding: 40px; 
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Nuevos estilos para el layout del chat */
+.teacher-chat-layout {
+    display: flex;
     width: 100%;
+    height: 100%; /* Ocupar el alto del contenedor */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    overflow: hidden; /* Para que los bordes redondeados afecten a los hijos */
+}
+
+/* Sidebar (Lista de contactos) */
+.teacher-chat-sidebar {
+    width: 300px; /* Ancho del sidebar */
+    border-right: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column;
+    background-color: #f9f9f9;
+}
+
+.teacher-chat-sidebar-header {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.teacher-chat-sidebar-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.teacher-chat-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* Scroll si hay muchos contactos */
+    flex-grow: 1;
+}
+
+.teacher-chat-contact-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+.teacher-chat-contact-item:hover {
+    background-color: #eef2f5;
+}
+.teacher-chat-contact-item.active {
+    background-color: #d8e2eb; /* Color para el chat activo */
+}
+
+.teacher-chat-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+}
+
+.teacher-chat-contact-info {
+    flex-grow: 1;
+    overflow: hidden; /* Para truncar texto largo */
+}
+.teacher-chat-contact-name {
+    display: block;
+    font-weight: 500;
+    color: #222;
+    font-size: 15px;
+}
+.teacher-chat-contact-lastmsg {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.teacher-chat-contact-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
+    color: #888;
+    margin-left: 10px;
+}
+.teacher-chat-unread-badge {
+    background-color: #007bff;
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+/* Ventana Principal del Chat */
+.teacher-chat-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* Fondo del área de chat */
+}
+
+.teacher-chat-main-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f5f7fa;
+}
+.teacher-chat-main-header h3 {
+    margin: 0 0 0 15px;
+    font-size: 18px;
+    color: #333;
+}
+.teacher-chat-avatar-large {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.teacher-chat-messages-area {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto; /* Scroll para mensajes */
+    background-color: #e5ddd5; /* Un fondo tipo WhatsApp */
+    /* background-image: url('path/to/your/chat-background.png'); */ /* Opcional: imagen de fondo */
+}
+
+.teacher-chat-message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    max-width: 70%; /* Ancho máximo del mensaje */
+    padding: 8px 12px;
+    border-radius: 10px;
+    position: relative;
+}
+.teacher-chat-message.sent {
+    background-color: #dcf8c6; /* Verde para mensajes enviados */
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+.teacher-chat-message.received {
+    background-color: #ffffff; /* Blanco para mensajes recibidos */
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+
+.teacher-chat-message-text {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    word-wrap: break-word;
+}
+.teacher-chat-message-time {
+    font-size: 11px;
+    color: #888;
+    align-self: flex-end;
+}
+
+.teacher-chat-input-area {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid #e0e0e0;
+    background-color: #f0f0f0;
+}
+.teacher-chat-input-area input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.teacher-chat-input-area input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+.teacher-chat-input-area button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.teacher-chat-input-area button:hover {
+    background-color: #0056b3;
+}
+.teacher-chat-input-area button i.bx {
+    font-size: 18px;
+}
+
+
+.teacher-chat-placeholder-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 300px; 
-  }
-  
-  
-  .teacher-chat-content h1 {
-    margin-top: 0; 
-    margin-bottom: 30px;
-    font-size: 26px; 
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .teacher-chat-placeholder {
-      color: #555;
-      font-style: italic;
-      margin-top: 20px;
-  }
-  .teacher-chat-placeholder p {
-      margin: 8px 0;
-  }
+    color: #888;
+    background-color: #f8f9fa;
+}
+.teacher-chat-placeholder-main p {
+    font-size: 16px;
+    margin-top: 10px;
+}

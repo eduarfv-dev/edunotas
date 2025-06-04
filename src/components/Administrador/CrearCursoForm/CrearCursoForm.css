@@ -1,3 +1,4 @@
+/* src/components/Administrador/CrearCursoForm/CrearCursoForm.css */
 .create-course-content {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 30px 40px;
@@ -18,7 +19,7 @@
   font-size: 22px;
 }
 
-.create-course-form {
+.course-form { /* Se usa tanto en CrearCursoForm como en el form de edición en ManageCoursesAdmin */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -40,30 +41,56 @@
 }
 
 .form-group input[type="text"],
-.form-group textarea {
+.form-group textarea,
+.form-group select { /* Añadido select aquí para estilos consistentes */
   padding: 12px 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
   width: 100%;
-  box-sizing: border-box; /* Importante para que el padding no aumente el tamaño */
+  box-sizing: border-box; 
 }
 
 .form-group textarea {
-  resize: vertical; /* Permite redimensionar verticalmente */
+  resize: vertical; 
   min-height: 80px;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus { /* Añadido select:focus */
   outline: none;
   border-color: #0e688eb7;
   box-shadow: 0 0 5px rgba(14, 104, 142, 0.3);
 }
 
+/* Estilos específicos para el selector múltiple de grados */
+.multi-select-grades {
+  min-height: 100px; /* Para que se vean varias opciones */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px; 
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.multi-select-grades:focus {
+  outline: none;
+  border-color: #0e688eb7;
+  box-shadow: 0 0 5px rgba(14, 104, 142, 0.3);
+}
+
+.form-group small { /* Para mensajes como "No hay grados disponibles" */
+  margin-top: 5px;
+  font-size: 0.85em;
+  color: #6c757d;
+}
+
+
 .form-actions {
   display: flex;
-  justify-content: flex-end; /* Alinea botones a la derecha */
+  justify-content: flex-end; 
   gap: 15px;
   margin-top: 20px;
   width: 100%;
@@ -101,23 +128,11 @@
   cursor: not-allowed;
 }
 
-.error-message {
-  color: #d9534f; /* Rojo */
+/* Mensajes de error/éxito locales al formulario, si los usaras dentro (ahora se manejan en el padre) */
+.error-message { 
+  color: #d9534f; 
   background-color: #f2dede;
   border: 1px solid #ebccd1;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 14px;
-}
-
-.success-message {
-  color: #3c763d; /* Verde */
-  background-color: #dff0d8;
-  border: 1px solid #d6e9c6;
   padding: 10px;
   border-radius: 5px;
   margin-top: 10px;

@@ -1,3 +1,4 @@
+/* src/components/Profesor/RegistrarNotas/RegistrarNotas.css */
 .register-grades-container {
     display: flex;
     padding: 20px;
@@ -5,17 +6,17 @@
     width: 100%;
     max-width: 1200px; 
     margin: auto;
-    margin-top: 60px;
+    margin-top: 60px; /* Espacio para el botón de regreso si está posicionado absoluto arriba */
     gap: 20px;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    min-height: 80vh;
+    min-height: 80vh; /* Para darle una altura mínima considerable */
 }
   
 .register-grades-back-button {
     position: absolute;
-    top: -40px;
+    top: -40px; /* Ajusta para que quede fuera del contenedor principal si es necesario */
     left: 0px; 
     color: #fff; 
     background-color: rgba(0, 0, 0, 0.4); 
@@ -28,7 +29,7 @@
     display: inline-flex;
     align-items: center;
     transition: background-color 0.3s;
-    z-index: 10; 
+    z-index: 10; /* Para que esté sobre otros elementos si es necesario */
 }
 .register-grades-back-button:hover {
     background-color: rgba(0, 0, 0, 0.6);
@@ -39,9 +40,9 @@
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    width: 200px;
-    flex-shrink: 0;
-    height: fit-content;
+    width: 220px; /* Un poco más de ancho para los selectores */
+    flex-shrink: 0; /* Evita que se encoja */
+    height: fit-content; /* Para que su altura se ajuste al contenido */
 }
   
 .register-grades-sidebar label {
@@ -53,7 +54,7 @@
 }
   
 .register-grades-sidebar select, 
-.register-grades-search-button {
+.register-grades-search-button { /* Si tienes un botón de búsqueda, aunque no está en el JS actual */
     display: block;
     margin-bottom: 15px;
     width: 100%;
@@ -79,7 +80,7 @@
 }
   
 .register-grades-main-content {
-    flex-grow: 1;
+    flex-grow: 1; /* Ocupa el espacio restante */
     border: 1px solid #ccc; 
     padding: 25px;
     background-color: #fff;
@@ -98,13 +99,14 @@
   
 .register-grades-table-wrapper {
     width: 100%;
-    overflow-x: auto;
+    overflow-x: auto; /* Permite scroll horizontal si la tabla es muy ancha */
     margin-bottom: 20px;
-    flex-grow: 1;
+    flex-grow: 1; /* Permite que la tabla ocupe el espacio vertical disponible */
 }
   
 .register-grades-table-wrapper table {
     width: 100%;
+    min-width: 700px; /* Ancho mínimo para que las columnas no se aplasten */
     border-collapse: collapse;
 }
   
@@ -114,13 +116,17 @@
     padding: 8px 10px;
     text-align: center;
     font-size: 14px;
+    vertical-align: middle; /* Centrar verticalmente el contenido */
 }
   
 .register-grades-table-wrapper th {
     background-color: #e9e9e9;
     color: #333;
     font-weight: bold;
-    white-space: nowrap;
+    white-space: nowrap; /* Evita que los encabezados se rompan en varias líneas */
+    position: sticky; /* Cabecera fija al hacer scroll vertical */
+    top: 0;
+    z-index: 1;
 }
   
 .register-grades-table-wrapper td {
@@ -130,15 +136,21 @@
 .register-grades-table-wrapper input[type="number"], 
 .register-grades-table-wrapper input[type="text"] {
     width: 90%;
+    max-width: 70px; /* Ancho máximo para inputs de nota */
     border: 1px solid #ddd;
     padding: 6px 8px;
     box-sizing: border-box;
     text-align: center;
     border-radius: 4px;
 }
+.register-grades-table-wrapper input.observation-input { /* Input de observación más ancho */
+    max-width: 200px;
+    text-align: left;
+}
+
 .register-grades-table-wrapper input[type="number"] {
-    -moz-appearance: textfield;
-    appearance: textfield;
+    -moz-appearance: textfield; /* Para Firefox */
+    appearance: textfield; /* Para otros navegadores */
 }
 .register-grades-table-wrapper input[type="number"]::-webkit-outer-spin-button,
 .register-grades-table-wrapper input[type="number"]::-webkit-inner-spin-button {
@@ -150,9 +162,9 @@
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+    margin-top: 15px; /* Espacio sobre los botones */
+    padding-top: 15px; /* Espacio dentro del contenedor de botones */
+    border-top: 1px solid #eee; /* Línea divisoria */
 }
   
 .register-grades-clear-button, 
@@ -174,11 +186,54 @@
 }
   
 .register-grades-save-button {
-    background-color: #5cb85c;
+    background-color: #5cb85c; /* Verde para guardar */
 }
 .register-grades-save-button:hover {
     background-color: #4cae4c;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
-  
-/* Eliminar estilos de profile */
+
+/* Mensajes de carga de estudiantes y estado de guardado */
+.loading-message, 
+.status-message { 
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+.loading-message {
+  color: #004085; /* Azul oscuro para texto */
+  background-color: #cce5ff; /* Azul claro para fondo */
+  border: 1px solid #b8daff; /* Borde azul */
+}
+/* Usar las clases .error-message y .success-message globales si existen
+   o definir estilos específicos si es necesario */
+.status-message.error-message { 
+  /* Se espera que .error-message ya esté definido globalmente o en App.css */
+  /* Ejemplo si no: */
+  /* color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; */
+  margin-top: 10px; /* Espacio si se muestra con los botones */
+}
+.status-message.success-message {
+  /* Se espera que .success-message ya esté definido globalmente o en App.css */
+  /* Ejemplo si no: */
+  /* color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; */
+  margin-top: 10px;
+}
+
+/* Media query para responsividad */
+@media (max-width: 992px) { /* Ajustar breakpoint si es necesario */
+    .register-grades-container {
+        flex-direction: column;
+        margin-top: 80px; /* Más espacio para el botón de regreso en móvil */
+    }
+    .register-grades-sidebar {
+        width: 100%; /* Sidebar ocupa todo el ancho */
+        height: auto;
+        margin-bottom: 20px;
+    }
+    .register-grades-main-content {
+        width: 100%;
+    }
+}

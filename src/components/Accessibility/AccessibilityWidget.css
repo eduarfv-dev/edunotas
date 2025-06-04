@@ -1,0 +1,100 @@
+/* src/components/Accessibility/AccessibilityWidget.css */
+
+.accessibility-container {
+  width: 90%; /* Más adaptable a pantallas pequeñas */
+  max-width: 550px; /* Un ancho máximo */
+  margin: 0 auto;   /* Para centrar si tiene max-width */
+  padding: 20px;
+  background-color: #ffffff; /* Fondo blanco sólido por defecto */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: fixed;
+  top: 50%; 
+  left: 50%;  
+  transform: translate(-50%, -50%); /* Centra el widget en la pantalla */
+  z-index: 1000; 
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.accessibility-title {
+  margin-top: 0;
+  margin-bottom: 15px; /* Más espacio después del título */
+  font-size: 1.3em;  /* Título un poco más grande */
+  color: #333;
+  text-align: left; /* Título alineado a la izquierda dentro del contenedor */
+}
+
+.accessibility-widget {
+  display: grid; /* Usar grid para mejor control de los botones */
+  grid-template-columns: 1fr; /* Una columna por defecto */
+  gap: 12px; /* Espacio entre botones */
+}
+
+/* En pantallas más grandes, dos columnas */
+@media (min-width: 500px) {
+  .accessibility-widget {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.accessibility-widget button {
+  padding: 10px 15px; /* Botones un poco más grandes */
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa; /* Un fondo ligeramente gris */
+  border-radius: 4px;
+  font-size: 0.95em; /* Texto del botón un poco más grande */
+  transition: background-color 0.2s, border-color 0.2s;
+  text-align: left; /* Alinea el texto del botón a la izquierda */
+  width: 100%; /* Botones ocupan todo el ancho de su celda en el grid */
+}
+
+.accessibility-widget button:hover {
+  background-color: #e9ecef;
+  border-color: #bbb;
+}
+
+.accessibility-widget button.active,
+.accessibility-widget button[aria-pressed="true"] {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+
+/* Estilos para el widget cuando ALTO CONTRASTE está activado en el body */
+body.high-contrast .accessibility-container {
+  background-color: #000000 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.high-contrast .accessibility-title {
+  color: #ffff00 !important;
+}
+
+/* Estilo para el botón de cierre 'X' en modo alto contraste */
+body.high-contrast .accessibility-container button[title="Cerrar opciones de accesibilidad"] {
+    color: #ffff00 !important;
+    border-color: #ffff00 !important;
+}
+body.high-contrast .accessibility-container button[title="Cerrar opciones de accesibilidad"]:hover {
+    background-color: #222 !important;
+}
+
+
+body.high-contrast .accessibility-widget button {
+  background-color: #222 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.high-contrast .accessibility-widget button:hover {
+  background-color: #333 !important;
+}
+
+body.high-contrast .accessibility-widget button.active,
+body.high-contrast .accessibility-widget button[aria-pressed="true"] {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}

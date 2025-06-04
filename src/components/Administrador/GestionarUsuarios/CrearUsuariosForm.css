@@ -1,110 +1,141 @@
+/* src/components/Administrador/GestionarUsuarios/CrearUsuariosForm.css */
 .create-user-form-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-  }
-  
-  .create-user-form-container {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 450px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .create-user-form-container h2 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #333;
-    font-size: 22px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #555;
-    font-size: 14px;
-  }
-  
-  .form-group input[type="email"],
-  .form-group input[type="text"],
-  .form-group input[type="password"] {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  
-  .form-group input:disabled {
-    background-color: #e9ecef;
-    cursor: not-allowed;
-  }
-  
-  .form-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
-  
-  .form-actions button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.2s, opacity 0.2s;
-    font-weight: 500;
-  }
-  
-  .form-actions .cancel-button {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .form-actions .cancel-button:hover {
-    background-color: #5a6268;
-  }
-  
-  .form-actions .submit-button {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .form-actions .submit-button:hover {
-    background-color: #218838;
-  }
-  
-  .form-actions button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  .form-error-message.form-error-message {
-    color: #dc3545;
-    font-size: 14px;
-    margin-top: -10px;
-    margin-bottom: 15px;
-    text-align: center;
-    background-color: transparent;
-    padding: 0;
-    border: none;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.create-user-form-container {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-user-form-container h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #333;
+  font-size: 22px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+}
+
+.form-group input[type="email"],
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-group input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.form-actions {
+  display: flex;
+  /* Si solo hay un botón "Cerrar", centrarlo */
+  justify-content: space-between; /* Mantenido, pero si es un solo botón se ajusta */
+  margin-top: 30px;
+}
+/* Ajuste para centrar si solo hay un botón */
+.form-actions button:only-child {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s, opacity 0.2s;
+  font-weight: 500;
+}
+
+.form-actions .cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.form-actions .cancel-button:hover {
+  background-color: #5a6268;
+}
+
+.form-actions .submit-button {
+  background-color: #28a745; 
+  color: white;
+}
+
+.form-actions .submit-button:hover {
+  background-color: #218838;
+}
+
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Mensaje de error de validación del cliente (tu estilo original) */
+.error-message.form-error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  text-align: center;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* Estilo para los mensajes de feedback del servidor (error y éxito) */
+.server-feedback-message {
+  padding: 10px;
+  margin-bottom: 20px; /* Espacio antes de los campos del formulario */
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.error-message.server-feedback-message {
+  background-color: #f8d7da; /* Fondo rojo claro */
+  color: #721c24; /* Texto rojo oscuro */
+  border: 1px solid #f5c6cb; /* Borde rojo */
+}
+
+.success-message.server-feedback-message {
+  background-color: #d4edda; /* Fondo verde claro */
+  color: #155724; /* Texto verde oscuro */
+  border: 1px solid #c3e6cb; /* Borde verde */
+}

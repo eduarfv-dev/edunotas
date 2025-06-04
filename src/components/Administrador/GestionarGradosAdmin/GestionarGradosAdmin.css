@@ -1,0 +1,330 @@
+/* src/components/Administrador/GestionarGradosAdmin/GestionarGradosAdmin.css */
+
+.manage-grades-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(238, 238, 238, 0.9); /* Fondo del contenedor principal */
+    border-radius: 15px; /* Bordes redondeados como el panel admin */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 750px; /* Ancho máximo del contenedor */
+    margin: 30px auto;
+    width: 90%;
+}
+
+.manage-grades-back-button {
+    padding: 10px 18px;
+    margin-bottom: 25px;
+    background-color: #6c757d; /* Gris oscuro para el botón de regreso */
+    color: white;
+    border: none;
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: flex-start; 
+    font-size: 0.9em;
+    font-weight: 500;
+}
+.manage-grades-back-button:hover {
+    background-color: #5a6268;
+}
+
+.loading-indicator, .error-message, .success-message {
+    width: 100%;
+    max-width: 500px; /* Para que no sean demasiado anchos */
+    padding: 12px 15px;
+    margin: 0 auto 20px auto; /* Centrar y añadir margen inferior */
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.95em;
+}
+.loading-indicator {
+    color: #007bff;
+    background-color: #e7f3ff;
+    border: 1px solid #b8daff;
+}
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: flex; /* Para alinear el botón de cierre */
+    justify-content: space-between;
+    align-items: center;
+}
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: flex; /* Para alinear el botón de cierre */
+    justify-content: space-between;
+    align-items: center;
+}
+.close-message-button {
+    background: none;
+    border: none;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: inherit; /* Hereda el color del texto del mensaje */
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+/* Contenedor del título y los botones del menú */
+.manage-grades-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.manage-grades-content h1 {
+    text-align: center;
+    font-size: 28px; 
+    font-weight: bold;
+    margin-bottom: 35px; 
+    color: #333; 
+}
+
+/* Estilos para los botones del menú, similar a PanelAdmin y Gestión de Cursos */
+.admin-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; 
+  width: 100%; 
+  max-width: 450px; 
+  margin: 0 auto 30px auto; /* Centrar el grupo */
+}
+
+.admin-button-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 18px; 
+  width: 100%; 
+  background-color: #f8f9fa; 
+  padding: 18px 25px; 
+  border-radius: 10px; 
+  box-shadow: 0 3px 6px rgba(0,0,0,0.07); 
+  cursor: pointer; 
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.admin-button-with-icon i {
+  font-size: 24px; 
+  color: #4a5568; 
+  flex-shrink: 0; 
+  transition: color 0.2s ease-in-out;
+}
+
+.admin-button-with-icon button {
+  flex-grow: 1; 
+  padding: 0; 
+  border: none;
+  background-color: transparent; 
+  font-size: 16px; /* Ligeramente más pequeño que el título del botón del panel admin */
+  font-weight: 500; 
+  color: #2d3748; 
+  cursor: pointer; 
+  text-align: left; 
+  transition: color 0.2s ease-in-out;
+  /* text-transform: uppercase; /* Opcional, si prefieres mayúsculas */
+}
+
+.admin-button-with-icon:hover {
+    background-color: #e9ecef; 
+    transform: translateY(-1px); 
+}
+/* No es necesario un color de hover específico para ícono/botón si el fondo cambia bien */
+
+
+/* Estilos para los formularios (Crear/Editar Grado) */
+.create-grade-form-container, .edit-grade-form-container {
+    width: 100%;
+    max-width: 550px; /* Un poco más estrecho */
+    padding: 25px 30px;
+    background-color: #ffffff; /* Fondo blanco para formularios */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 20px; /* Espacio si hay mensajes arriba */
+}
+.create-grade-form-container h2, .edit-grade-form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 1.8em;
+}
+.grade-form .form-group {
+    margin-bottom: 18px;
+}
+.grade-form .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500; /* Un poco menos grueso que bold */
+    color: #495057; /* Color de etiqueta más suave */
+    font-size: 0.95em;
+}
+.grade-form .form-group input[type="text"],
+.grade-form .form-group select {
+    width: 100%;
+    padding: 12px 15px; /* Padding más generoso */
+    border: 1px solid #ced4da; /* Borde más suave */
+    border-radius: 6px; /* Bordes más redondeados */
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.grade-form .form-group input[type="text"]:focus,
+.grade-form .form-group select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+.grade-form .form-group select {
+    cursor: pointer;
+    appearance: none; /* Quitar estilo nativo de select */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007AFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.9z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 10px 10px;
+    padding-right: 40px; /* Espacio para la flecha */
+}
+.grade-form .form-group small {
+    font-size: 0.85em;
+    color: #6c757d;
+    margin-top: 6px;
+    display: block;
+}
+.grade-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+.grade-form .submit-button, .grade-form .cancel-button {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95em;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.grade-form .submit-button {
+    background-color: #28a745;
+    color: white;
+}
+.grade-form .submit-button:hover {
+    background-color: #218838;
+    box-shadow: 0 2px 4px rgba(40,167,69,.4);
+}
+.grade-form .cancel-button {
+    background-color: #6c757d;
+    color: white;
+}
+.grade-form .cancel-button:hover {
+    background-color: #5a6268;
+    box-shadow: 0 2px 4px rgba(108,117,125,.4);
+}
+
+
+/* Estilos para la lista de grados */
+.view-grades-list-container {
+    width: 100%;
+    background-color: #fff; /* Fondo blanco para la lista */
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-top: 20px;
+}
+.view-grades-list-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    color: #333;
+}
+.grades-list {
+    list-style-type: none;
+    padding: 0;
+}
+.grade-list-item {
+    background-color: #f8f9fa; /* Fondo ligeramente diferente para cada item */
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    /* border: 1px solid #e9ecef; Removido para un look más plano */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.grade-list-item > span:first-child { /* El nombre/descripción del grado */
+    flex-basis: 60%; /* Darle más espacio */
+    font-weight: 500;
+    color: #343a40;
+}
+.grade-list-item .tutor-info {
+    font-size: 0.9em;
+    color: #555;
+    margin-left: 10px; /* Espacio si está en la misma línea */
+    flex-basis: 30%; /* Espacio para el tutor */
+    text-align: right; /* Alinear a la derecha si hay espacio */
+}
+.grade-list-item .grade-actions { 
+    margin-left: 15px; 
+    flex-shrink: 0; 
+    display: flex;
+    gap: 8px;
+}
+.grade-list-item button {
+    padding: 7px 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.grade-list-item .edit-button {
+    background-color: #ffc107; /* Amarillo para editar */
+    color: #212529;
+}
+.grade-list-item .edit-button:hover {
+    background-color: #e0a800;
+    box-shadow: 0 1px 3px rgba(255,193,7,.4);
+}
+.grade-list-item .delete-button {
+    background-color: #dc3545; /* Rojo para eliminar */
+    color: white;
+}
+.grade-list-item .delete-button:hover {
+    background-color: #c82333;
+    box-shadow: 0 1px 3px rgba(220,53,69,.4);
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 700px) { /* Ajustar el breakpoint si es necesario */
+    .admin-button-group {
+        max-width: 100%; /* Ocupar todo el ancho disponible */
+    }
+    .grade-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .grade-list-item > span:first-child,
+    .grade-list-item .tutor-info {
+        flex-basis: 100%; /* Ocupar toda la línea */
+        text-align: left; /* Alinear a la izquierda */
+        margin-left: 0;
+        margin-bottom: 8px; /* Espacio entre líneas de texto */
+    }
+    .grade-list-item .tutor-info {
+        margin-bottom: 10px;
+    }
+    .grade-list-item .grade-actions {
+        margin-left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+}

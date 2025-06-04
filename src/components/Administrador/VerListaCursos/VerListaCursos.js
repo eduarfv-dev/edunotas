@@ -1,73 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { db } from '../../../firebase';
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import './VerListaCursos.css';
+// src/components/Administrador/VerListaCursos/VerListaCursos.js
+import React from 'react';
+import './VerListaCursos.css'; 
 
-function ViewCoursesList({ onBack }) { 
-  const [courses, setCourses] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+function ViewCoursesList({ courses, isLoading, error, mode, onEditAction, onDeleteAction, profesores, gradesList }) {
+  const getTeacherNameById = (teacherId) => {
+    if (!profesores || profesores.length === 0 || !teacherId) return 'No asignado'; 
+    const teacher = profesores.find(prof => prof.id === teacherId);
+    return teacher ? (teacher.displayName || `${teacher.firstName || ''} ${teacher.lastName || ''}`.trim() || teacher.email || 'Profesor Desconocido') : 'Profesor No Encontrado';
+  };
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      setIsLoading(true);
-      setError('');
-      try {
-        const coursesRef = collection(db, "cursos");
-        const q = query(coursesRef, orderBy("name"));
-        const querySnapshot = await getDocs(q);
-        const coursesList = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setCourses(coursesList);
-        console.log("Cursos encontrados:", coursesList);
-      } catch (err) {
-        console.error("Error al obtener los cursos: ", err);
-        setError("No se pudieron cargar los cursos. Inténtalo de nuevo.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const getAssignedGradeNames = (assignedIds) => {
+    if (!assignedIds || assignedIds.length === 0 || !gradesList || gradesList.length === 0) {
+      return 'Ninguno';
+    }
+    const names = assignedIds.map(id => {
+      const grade = gradesList.find(g => g.id === id);
+      return grade ? (grade.shortName || grade.name) : ''; // Retorna string vacío si no encuentra para filtrar luego
+    }).filter(name => name !== '').join(', '); // Filtra los no encontrados y une
+    return names || 'Ninguno';
+  };
 
-    fetchCourses();
-  }, []);
+  if (isLoading) { 
+    return <div className="view-courses-content"><p className="loading-indicator">Cargando cursos...</p></div>;
+  }
+  if (error) { 
+    return <div className="view-courses-content"><p className="error-message">{error}</p></div>;
+  }
+  if (!isLoading && !error && courses.length === 0) {
+    return <div className="view-courses-content"><p>No hay cursos disponibles para mostrar.</p></div>;
+  }
 
   return (
     <div className="view-courses-content">
-      <div className="view-courses-header">
-        <h2>Lista de Cursos Existentes</h2>
-      </div>
-
-      {isLoading && <p>Cargando cursos...</p>}
-      {error && <p className="error-message">{error}</p>}
-
-      {!isLoading && !error && (
-        courses.length === 0 ? (
-          <p>No hay cursos creados todavía.</p>
-        ) : (
-          <div className="courses-table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Nombre del Curso</th>
-                  <th>Descripción</th>
+      {!isLoading && !error && courses.length > 0 && (
+        <div className="courses-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre del Curso</th>
+                <th>Descripción</th>
+                <th>Profesor Asignado</th>
+                <th>Grados Asignados</th>
+                {(mode === 'edit' || mode === 'delete') && <th>Acciones</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {courses.map((course) => (
+                <tr key={course.id}>
+                  <td>{course.name || 'Sin Nombre'}</td>
+                  <td>{course.description ? `${course.description.substring(0, 70)}${course.description.length > 70 ? '...' : ''}` : '-'}</td>
+                  <td>{getTeacherNameById(course.teacherId)}</td>
+                  <td>{getAssignedGradeNames(course.assignedGradeIds)}</td>
+                  {(mode === 'edit' || mode === 'delete') && (
+                    <td>
+                      {mode === 'edit' && onEditAction && (
+                        <button onClick={() => onEditAction(course)} className="action-button edit-button">Modificar</button>
+                      )}
+                      {mode === 'delete' && onDeleteAction && (
+                        <button onClick={() => onDeleteAction(course)} className="action-button delete-button">Eliminar</button>
+                      )}
+                    </td>
+                  )}
                 </tr>
-              </thead>
-              <tbody>
-                {courses.map((course) => (
-                  <tr key={course.id}>
-                    <td>{course.name}</td>
-                    <td>{course.description ? `${course.description.substring(0, 100)}${course.description.length > 100 ? '...' : ''}` : '-'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
 }
-
 export default ViewCoursesList;

@@ -11,20 +11,26 @@
   
   .course-manage-back-button {
     position: absolute;
-    top: -40px; 
-    left: 0px; 
-    color: #fff; 
-    background-color: rgba(0, 0, 0, 0.4); 
+    top: 10px; /* Antes: -40px */
+    left: 10px; /* Antes: 0px */
+    color: #333; /* Antes: #fff */
+    background-color: #fff; /* Antes: rgba(0, 0, 0, 0.4) */
+    border: 2px solid #007bff; /* Nuevo: Borde azul para resaltar */
     text-decoration: none;
     font-size: 14px;
     padding: 8px 15px;
-    border: none;
     border-radius: 20px;
     cursor: pointer;
     display: inline-flex; 
     align-items: center;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
     z-index: 10; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* Nuevo: Sombra para resaltar */
+  }
+  .course-manage-back-button:hover {
+    background-color: #007bff; /* Azul al pasar el mouse */
+    color: #fff; /* Texto blanco al pasar el mouse */
+    border: 2px solid #0056b3; /* Borde más oscuro */
   }
   .course-manage-back-button:hover {
     background-color: rgba(0, 0, 0, 0.6);
@@ -85,3 +91,108 @@
   .course-manage-option-button i.bx {
       font-size: 22px; 
   }
+
+/* Nuevos estilos para la lista de cursos y el formulario de edición */
+.course-list {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  max-width: 700px; /* O el ancho que prefieras */
+  margin-top: 20px;
+}
+
+.course-list-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.course-list-item > div { /* Contenedor para el texto del curso */
+  flex-grow: 1;
+  text-align: left;
+}
+
+.course-list-item h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.course-list-item p {
+  margin: 4px 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.course-edit-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 0.9em;
+  margin-left: 15px; /* Espacio entre el texto y el botón */
+  flex-shrink: 0; /* Evita que el botón se encoja */
+}
+
+.course-edit-button:hover {
+  background-color: #0056b3;
+}
+
+.course-edit-form {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #fff; /* Fondo para el formulario si es diferente al content general */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.course-edit-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-edit-form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #444;
+  text-align: left;
+}
+
+.course-edit-form input[type="text"],
+.course-edit-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+}
+
+.course-edit-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.course-edit-form .course-manage-option-button { /* Estilo para el botón Guardar Cambios */
+    align-self: flex-start; 
+    margin-top: 10px;
+    /* Hereda estilos de .course-manage-option-button pero puedes sobreescribir si es necesario */
+    background-color: #28a745; /* Un color verde para guardar */
+    color: white;
+}
+.course-edit-form .course-manage-option-button:hover {
+    background-color: #218838; /* Verde más oscuro al pasar el mouse */
+}

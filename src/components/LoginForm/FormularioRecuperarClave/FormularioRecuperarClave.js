@@ -9,9 +9,9 @@ function PasswordRecoveryForm({ onBack }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Solicitud de recuperación enviada:');
-    console.log('Documento:', documentNumber);
+    console.log('Documento:', documentNumber); // El valor de documentNumber será '' si el campo está oculto
     console.log('Correo:', email);
-    alert('Se ha enviado la solicitud de recuperación (simulado).');
+    alert('Se ha enviado su nueva clave, por favor revise su correo electrónico.'); // Modificado aquí
   };
 
   const handleBackClick = () => {
@@ -29,9 +29,11 @@ function PasswordRecoveryForm({ onBack }) {
         style={{ backgroundImage: `url(${recoveryIconUrl})` }}
       ></div> 
       <h1>¿Ha olvidado su contraseña?</h1>
-      <p>Ingrese su documento y correo electrónico para hacerle el envío de una nueva contraseña.</p>
+      <p>Ingrese su correo electrónico para hacerle el envío de una nueva contraseña.</p> {/* Modificado aquí */}
       
       <form onSubmit={handleSubmit}>
+        {/* Campo de Documento comentado temporalmente */}
+        {/* 
         <div className="recovery-input-group"> 
           <i className='bx bx-id-card'></i>
           <input
@@ -43,6 +45,7 @@ function PasswordRecoveryForm({ onBack }) {
             id="recovery-document"
           />
         </div>
+        */}
         <div className="recovery-input-group"> 
           <i className='bx bxs-envelope'></i>
           <input

@@ -1,16 +1,18 @@
+/* src/components/Administrador/VerListaCursos/VerListaCursos.css */
 .view-courses-content {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 30px 40px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 800px;
+  max-width: 900px; /* Aumentado un poco para dar espacio a la nueva columna */
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* El H2 se maneja ahora en ManageCoursesAdmin, así que .view-courses-header podría no ser necesario aquí
 .view-courses-header {
   display: flex;
   justify-content: space-between;
@@ -24,14 +26,16 @@
   color: #333;
   font-size: 22px;
 }
+*/
 
 .courses-table-wrapper {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: auto; /* Importante para que la tabla sea responsive */
 }
 
 .courses-table-wrapper table {
   width: 100%;
+  min-width: 750px; /* Un ancho mínimo para que las columnas no se aplasten demasiado */
   border-collapse: collapse;
   background-color: #fff;
 }
@@ -43,12 +47,16 @@
   text-align: left;
   font-size: 14px;
   vertical-align: middle;
+  /* white-space: nowrap; /* Comentado para permitir multilínea en descripción */
 }
 
 .courses-table-wrapper th {
   background-color: #e9e9e9;
   color: #333;
   font-weight: bold;
+  position: sticky; /* Para que la cabecera se mantenga visible al hacer scroll vertical si la tabla es muy larga */
+  top: 0;
+  z-index: 1;
 }
 
 .courses-table-wrapper tbody tr:nth-child(even) {
@@ -59,7 +67,57 @@
   background-color: #f1f1f1;
 }
 
-.error-message {
+/* Estilos para celdas específicas para controlar el desbordamiento de texto */
+.courses-table-wrapper td:nth-child(1), /* Nombre del Curso */
+.courses-table-wrapper td:nth-child(3), /* Profesor */
+.courses-table-wrapper td:nth-child(4)  /* Grados Asignados */ {
+  max-width: 180px; /* Ajusta según necesidad */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.courses-table-wrapper td:nth-child(2) { /* Descripción */
+  max-width: 250px; /* Un poco más de espacio para la descripción */
+  white-space: normal; /* Permitir que la descripción ocupe varias líneas */
+  /* overflow: hidden; */ /* Quitar overflow si quieres que se expanda verticalmente */
+  /* text-overflow: clip; */
+}
+
+
+/* Botones de acción en la tabla */
+.action-button {
+  padding: 6px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  color: white;
+  transition: background-color 0.2s;
+}
+.action-button:last-child {
+  margin-right: 0;
+}
+
+.edit-button {
+  background-color: #ffc107; /* Amarillo */
+  color: #212529;
+}
+.edit-button:hover {
+  background-color: #e0a800;
+}
+
+.delete-button {
+  background-color: #dc3545; /* Rojo */
+}
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+
+/* Mensajes de error/carga/éxito (si los usas directamente en este componente) */
+.error-message, .loading-indicator { /* Aplicado al p tag dentro del div principal */
   color: #d9534f;
   background-color: #f2dede;
   border: 1px solid #ebccd1;
@@ -70,4 +128,9 @@
   box-sizing: border-box;
   text-align: center;
   font-size: 14px;
+}
+.loading-indicator {
+  background-color: #e0e0e0;
+  color: #333;
+  border: 1px solid #ccc;
 }

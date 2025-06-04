@@ -79,6 +79,14 @@
       color: #000;
   }
   
+  /* Estilo para el botón de navegación activo */
+  .forum-navigation button.active {
+    background-color: #617881; /* Un color que combine con el botón de "Crear Nuevo Tema" o el que prefieras */
+    color: white;
+    font-weight: bold;
+    border-color: #50656c; /* Un borde ligeramente más oscuro */
+  }
+  
   .forum-search-section {
     margin-bottom: 25px; 
     display: flex;
@@ -126,28 +134,77 @@
   }
   
   .forum-table {
+    display: grid; /* Cambiado para usar CSS Grid */
+    grid-template-columns: 3fr 1.5fr 1fr 1.5fr; /* Definición para 4 columnas */
+    /* gap: 0px; */ /* El gap se puede manejar con padding en las celdas si es necesario */
     border: 1px solid #ccc; 
-    padding: 0; 
     background-color: #fff; 
     width: 100%;
     border-radius: 8px; 
     overflow: hidden; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-top: 20px; /* Añadido para separar del botón de nuevo tema */
   }
   
   .forum-table-header {
-    display: grid; 
-    grid-template-columns: 3fr 1fr 1fr; 
-    gap: 10px;
+    display: contents; /* Para que los hijos se alineen con la cuadrícula del padre (.forum-table) */
+    /* grid-template-columns: 3fr 1fr 1fr;  <-- Esto se define en .forum-table ahora */
+    /* gap: 10px; <-- Eliminado, el gap se maneja en .forum-table o con padding */
     font-weight: bold;
     background-color: #e9e9e9; 
-    padding: 12px 15px; 
+    /* padding: 12px 15px;  <-- El padding se aplicará a los spans hijos */
     text-align: left;
-    border-bottom: 2px solid #ccc; 
+    /* border-bottom: 2px solid #ccc; <-- El borde se aplicará a los spans hijos */
   }
   
-  .forum-table-header span:nth-child(3) { 
+  .forum-table-header > span { /* Estilo para cada celda del encabezado */
+    padding: 12px 15px;
+    background-color: #e9e9e9; /* Asegurar fondo para los spans */
+    border-bottom: 2px solid #ccc;
+    text-align: left; /* Alineación por defecto */
+  }
+  
+  /* 
+  // Si deseas centrar columnas específicas del encabezado, puedes hacerlo así:
+  .forum-table-header span:nth-child(3) { // Para la tercera columna (ej. "Respuestas")
+      text-align: center; 
+  }
+  .forum-table-header span:nth-child(4) { // Para la cuarta columna (ej. "Última Actividad")
       text-align: center;
+  }
+  */
+  
+  
+  /* Estilos para las filas de datos de la tabla */
+  .forum-table-row {
+    display: contents; /* Para que los hijos se alineen con la cuadrícula del padre (.forum-table) */
+  }
+  
+  .forum-table-row > span {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 14px; /* Tamaño de fuente para los datos */
+    color: #333; /* Color de texto para los datos */
+    word-break: break-word; /* Para evitar que texto largo rompa el layout */
+  }
+  
+  .forum-table-row:last-child > span {
+    border-bottom: none; /* Quitar el borde de la última fila */
+  }
+  
+  .forum-table-row:hover > span {
+    background-color: #f9f9f9; /* Efecto hover para toda la fila */
+  }
+  
+  /* Estilo específico para el título del tema, para que parezca clickeable */
+  .forum-topic-title {
+    font-weight: 500;
+    color: #007bff; /* Un color azul estándar para enlaces */
+    cursor: pointer;
+  }
+  .forum-topic-title:hover {
+    text-decoration: underline;
   }
   
   .forum-placeholder {

@@ -1,3 +1,4 @@
+// AdminDashboard.js
 import React from 'react';
 import './PanelAdmin.css';
 import logousuario from '../../../assets/logousuario.png'; 
@@ -7,7 +8,8 @@ function AdminDashboard({
     onLogout,
     onNavigateToManageUsers, 
     onNavigateToManageCourses, 
-    onNavigateToReports 
+    onNavigateToReports,
+    onNavigateToManageGrades // <--- NUEVA PROP para la navegación a Gestión de Grados
 }) {
 
   const handleManageUsers = () => { 
@@ -18,6 +20,12 @@ function AdminDashboard({
   const handleManageCourses = () => { 
     if(onNavigateToManageCourses) onNavigateToManageCourses(); 
     else alert('Funcionalidad "Gestión de Cursos" no implementada.');
+  };
+
+  // NUEVO HANDLER para Gestión de Grados
+  const handleManageGrades = () => {
+    if(onNavigateToManageGrades) onNavigateToManageGrades();
+    else alert('Funcionalidad "Gestión de Grados" no implementada.');
   };
 
   const handleReports = () => { 
@@ -37,16 +45,24 @@ function AdminDashboard({
       
       <div className="admin-button-group">
         <div className="admin-button-with-icon">
-          <i className='bx bxs-group'></i>
-          <button onClick={handleManageUsers}>GESTION DE USUARIOS</button> 
+          <i className='bx bxs-group'></i> {/* Ícono para Gestión de Usuarios */}
+          <button onClick={handleManageUsers}>GESTIÓN DE USUARIOS</button> 
         </div>
         <div className="admin-button-with-icon">
-          <i className='bx bxs-book-open'></i>
-          <button onClick={handleManageCourses}>GESTION DE CURSOS Y SU CONTENIDO</button> 
+          <i className='bx bxs-book-open'></i> {/* Ícono para Gestión de Cursos */}
+          <button onClick={handleManageCourses}>GESTIÓN DE CURSOS Y SU CONTENIDO</button> 
         </div>
+
+        {/* ====== NUEVO BOTÓN PARA GESTIÓN DE GRADOS ====== */}
         <div className="admin-button-with-icon">
-          <i className='bx bxs-bar-chart-alt-2'></i>
-          <button onClick={handleReports}>REPORTES Y ESTADISTICAS</button> 
+          <i className='bx bxs-graduation'></i> {/* Ícono sugerido para Grados (BoxIcons) */}
+          <button onClick={handleManageGrades}>GESTIÓN DE GRADOS</button>
+        </div>
+        {/* =============================================== */}
+
+        <div className="admin-button-with-icon">
+          <i className='bx bxs-bar-chart-alt-2'></i> {/* Ícono para Reportes */}
+          <button onClick={handleReports}>REPORTES Y ESTADÍSTICAS</button> 
         </div>
       </div>
       

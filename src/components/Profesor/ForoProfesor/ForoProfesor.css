@@ -11,23 +11,26 @@
   
   .teacher-forum-back-button {
     position: absolute;
-    top: -40px; 
-    left: 0px; 
-    color: #fff; 
-    background-color: rgba(0, 0, 0, 0.4); 
+    top: 10px;
+    left: 10px;
+    color: #333;
+    background-color: #fff;
+    border: 2px solid #007bff;
     text-decoration: none;
     font-size: 14px;
     padding: 8px 15px;
-    border: none;
     border-radius: 20px;
     cursor: pointer;
-    display: inline-flex; 
+    display: inline-flex;
     align-items: center;
-    transition: background-color 0.3s;
-    z-index: 10; 
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
   .teacher-forum-back-button:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: #007bff;
+    color: #fff;
+    border: 2px solid #0056b3;
   }
   
   .teacher-forum-content {
@@ -76,6 +79,13 @@
   .teacher-forum-navigation button:hover {
       background-color: #ddd;
       color: #000;
+  }
+  
+  /* Estilo para el botón de navegación activo */
+  .teacher-forum-navigation button.active {
+    background-color: #617881; /* O el color que prefieras para el estado activo */
+    color: white;
+    font-weight: bold;
   }
   
   .teacher-forum-search-section {
@@ -132,21 +142,60 @@
     border-radius: 8px; 
     overflow: hidden; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-top: 20px; /* Añadido para separar del botón de nuevo tema */
+    text-align: left; /* Asegurar alineación a la izquierda para el contenido de la tabla */
   }
   
   .teacher-forum-table-header {
     display: grid; 
-    grid-template-columns: 3fr 1fr 1fr; 
-    gap: 10px;
+    grid-template-columns: 3fr 1.5fr 1fr 1.5fr; /* Ajustado para 4 columnas */
+    /* gap: 10px; */ /* El gap se puede eliminar si el padding en los spans es suficiente */
     font-weight: bold;
     background-color: #e9e9e9; 
-    padding: 12px 15px; 
-    text-align: left;
+    /* padding: 12px 15px; */ /* El padding se aplicará a los spans hijos */
+    text-align: left; /* Ya estaba, pero es bueno confirmarlo */
     border-bottom: 2px solid #ccc; 
   }
   
-  .teacher-forum-table-header span:nth-child(3) { 
+  .teacher-forum-table-header span { /* Estilo para cada celda del encabezado */
+    padding: 12px 15px;
+    /* text-align: left; por defecto, pero se puede especificar */
+  }
+  
+  /* .teacher-forum-table-header span:nth-child(3) {  <-- Ya no es necesario si todas las celdas se alinean a la izquierda por defecto
       text-align: center;
+  } */
+  
+  /* Estilos para las filas de datos de la tabla */
+  .teacher-forum-table-row {
+    display: grid;
+    grid-template-columns: 3fr 1.5fr 1fr 1.5fr; /* Mismas 4 columnas que el header */
+    border-bottom: 1px solid #eee;
+  }
+  
+  .teacher-forum-table-row:last-child {
+    border-bottom: none; /* Quitar el borde de la última fila */
+  }
+  
+  .teacher-forum-table-row span {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #333;
+    word-break: break-word; /* Para evitar que texto largo rompa el layout */
+  }
+  
+  .teacher-forum-table-row:hover {
+    background-color: #f9f9f9; /* Efecto hover para toda la fila */
+  }
+  
+  /* Estilo específico para el título del tema, para que parezca clickeable */
+  .teacher-forum-topic-title {
+    font-weight: 500;
+    color: #007bff; /* Un color azul estándar para enlaces */
+    cursor: pointer;
+  }
+  .teacher-forum-topic-title:hover {
+    text-decoration: underline;
   }
   
   .teacher-forum-placeholder {

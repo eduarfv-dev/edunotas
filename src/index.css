@@ -1,4 +1,4 @@
-
+/* src/index.css (Con estilos de resaltado exagerados para prueba) */
 
 body {
   margin: 0;
@@ -7,9 +7,123 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #0e688eb7;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 70px; /* Ajusta esto a la altura de tu .accessibility-container */
 }
 
 *, *::before, *::after {
   box-sizing: inherit;
+}
+
+a {
+  color: #0056b3;
+  text-decoration: none;
+  transition: background-color 0.3s, text-decoration 0.3s, color 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body.large-font {
+  font-size: 115%;
+}
+
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
+}
+
+body.high-contrast a {
+  color: #00ffff !important;
+  text-decoration: underline !important;
+}
+
+body.high-contrast button,
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea,
+body.high-contrast label,
+body.high-contrast legend {
+  background-color: #222222 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+body.high-contrast input::placeholder {
+    color: #bbff00 !important;
+}
+
+body.high-contrast header,
+body.high-contrast nav,
+body.high-contrast main,
+body.high-contrast footer,
+body.high-contrast section,
+body.high-contrast article,
+body.high-contrast aside,
+body.high-contrast div {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+body.high-contrast .login-form-container {
+  background-color: #111111 !important;
+  border: 1px solid #ffff00 !important;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5) !important;
+}
+body.high-contrast .login-form-container input,
+body.high-contrast .login-form-container button {
+  background-color: #222222 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+body.high-contrast .login-form-container button:hover {
+    background-color: #333333 !important;
+}
+body.high-contrast .login-form-container h2,
+body.high-contrast .login-form-container p {
+    color: #ffff00 !important;
+}
+
+body.dyslexic-font * {
+  font-family: 'OpenDyslexic', Helvetica, Arial, sans-serif !important;
+}
+
+/* >>> INICIO ESTILOS DE PRUEBA EXAGERADOS PARA RESALTAR ENLACES */
+body.links-highlighted a {
+  text-decoration: underline !important;
+  background-color: lime !important; /* Verde lima brillante - muy obvio */
+  color: red !important;             /* Texto rojo - muy obvio */
+  padding: 3px !important;           /* Padding para que se note más el fondo */
+  border: 2px dotted blue !important; /* Borde azul punteado - muy obvio */
+  font-size: 1.2em !important;       /* Aumenta un poco el tamaño del texto del enlace */
+  display: inline-block !important;  /* Asegura que el padding y borde se apliquen bien a enlaces inline */
+}
+/* <<< FIN ESTILOS DE PRUEBA EXAGERADOS PARA RESALTAR ENLACES */
+
+
+/* Ajuste para enlaces resaltados cuando también está activo el alto contraste */
+/* Mantenemos los estilos exagerados también para la prueba en alto contraste */
+body.high-contrast.links-highlighted a {
+  background-color: magenta !important;  /* Magenta - muy obvio */
+  color: yellow !important;              /* Texto amarillo - muy obvio */
+  border: 3px dashed white !important;   /* Borde blanco discontinuo - muy obvio */
+  padding: 3px !important;
+  text-decoration: underline !important;
+  font-size: 1.2em !important;
+  display: inline-block !important;
 }

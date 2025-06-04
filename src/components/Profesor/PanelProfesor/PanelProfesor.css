@@ -1,121 +1,181 @@
+/* src/components/Profesor/PanelProfesor/PanelProfesor.css */
 .teacher-dashboard-container {
-    background-color: rgba(238, 238, 238, 0.85); 
-    padding: 50px 30px; 
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 800px; 
-    width: 90%;
-    position: relative; 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .teacher-header {
-    margin-bottom: 25px; 
-    font-size: 18px;
-    color: #333; 
-  }
-  
-  .teacher-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 40px; 
-    color: #111; 
-  }
-  
-  .teacher-button-group {
-    display: flex;
-    justify-content: center; 
-    gap: 40px; 
-    width: 100%;
-    margin-bottom: 45px; 
-  }
-  
-  .teacher-left-buttons, 
-  .teacher-right-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; 
-    width: 45%; 
-    max-width: 300px; 
-  }
-  
-  .teacher-button-group button {
-    padding: 18px 25px; 
-    border: none;
-    border-radius: 25px;
-    background-color: #f0f0f0;
-    font-size: 15px; 
-    font-weight: 500;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    text-align: center; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
-  
-  .teacher-button-group button:hover {
-    background-color: #e0e0e0; 
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  }
-  
-  .teacher-profile {
-    position: absolute;
-    top: 15px;  
-    right: 15px; 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: rgba(255, 255, 255, 0.7); 
-    padding: 5px 10px;
-    border-radius: 20px;
-  }
-  
-  .teacher-profile img {
-    width: 40px;  
-    height: 40px; 
-    border-radius: 50%;
-    border: 2px solid #fff; 
-  }
-  
-  .teacher-profile span {
-      font-size: 14px;
-      font-weight: bold;
-      color: #333;
-  }
-  
-  .teacher-logout-button {
-    padding: 10px 25px; 
-    background-color: #777; 
-    color: white;
-    border: none; 
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
+  background-color: rgba(238, 238, 238, 0.85); 
+  padding: 50px 30px; 
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px; 
+  width: 90%;
+  position: relative; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  /* Para asegurar que los mensajes de carga/error se vean bien si se muestran dentro */
+  min-height: 400px; /* Ajusta según sea necesario */
+  justify-content: center; /* Centra el contenido si es menos que min-height */
+}
+
+.teacher-header {
+  margin-bottom: 25px; 
+  font-size: 18px;
+  color: #333; 
+}
+
+.teacher-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 40px; 
+  color: #111; 
+}
+
+.teacher-button-group {
+  display: flex;
+  justify-content: center; 
+  gap: 40px; 
+  width: 100%;
+  margin-bottom: 45px; 
+}
+
+.teacher-left-buttons, 
+.teacher-right-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+  width: 45%; 
+  max-width: 300px; 
+}
+
+.teacher-button-group button {
+  padding: 18px 25px; 
+  border: none;
+  border-radius: 25px;
+  background-color: #f0f0f0;
+  font-size: 15px; 
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  text-align: center; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.teacher-button-group button:hover {
+  background-color: #e0e0e0; 
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.teacher-profile {
+  position: absolute;
+  top: 15px;  
+  right: 15px; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.7); 
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.teacher-profile img {
+  width: 40px;  
+  height: 40px; 
+  border-radius: 50%;
+  border: 2px solid #fff; 
+}
+
+.teacher-profile span {
     font-size: 14px;
     font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .teacher-logout-button:hover {
-    background-color: #666;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  @media (max-width: 768px) {
-      .teacher-button-group {
-          flex-direction: column; 
-          gap: 25px; 
-          align-items: center; 
-      }
-      .teacher-left-buttons, 
-      .teacher-right-buttons {
-          width: 90%; 
-          max-width: 400px; 
-      }
-       .teacher-dashboard-container {
-          padding: 70px 20px 40px 20px; 
-       }
-  }
+    color: #333;
+}
+
+.teacher-logout-button {
+  padding: 10px 25px; 
+  background-color: #777; 
+  color: white;
+  border: none; 
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.teacher-logout-button:hover {
+  background-color: #666;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- NUEVOS ESTILOS PARA ESTADOS DE CARGA Y ERROR DENTRO DEL DASHBOARD --- */
+.loading-container,
+.error-container {
+/* Estos estilos se aplicarán si el div de carga/error se renderiza 
+   EN LUGAR del contenido del dashboard. El TeacherDashboard.js ya usa
+   estilos inline para esto, pero tenerlos en CSS es más limpio.
+   Si el TeacherDashboard.js renderiza estos *dentro* de .teacher-dashboard-container,
+   entonces los estilos de .teacher-dashboard-container ya aplicarán (fondo, padding, etc.) */
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 40px 20px; /* Padding generoso */
+text-align: center;
+}
+
+.loading-container {
+font-size: 1.3em;
+color: #333; /* Mismo color que .teacher-header */
+font-weight: 500;
+}
+
+.error-container {
+font-size: 1.1em;
+color: #721c24; /* Rojo oscuro para el texto del error */
+background-color: #f8d7da; /* Fondo rojo claro */
+border: 1px solid #f5c6cb; /* Borde rojo */
+border-radius: 8px; /* Bordes redondeados */
+max-width: 500px; /* Para que no sea demasiado ancho */
+margin: 20px auto; /* Centrarlo */
+}
+
+.error-container button { /* Estilo para el botón de reintentar */
+margin-top: 20px;
+padding: 10px 20px;
+font-size: 0.9em;
+color: white;
+background-color: #007bff; /* Azul como ejemplo */
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.2s;
+}
+
+.error-container button:hover {
+background-color: #0056b3;
+}
+/* ------------------------------------------------------------------------- */
+
+
+@media (max-width: 768px) {
+    .teacher-button-group {
+        flex-direction: column; 
+        gap: 25px; 
+        align-items: center; 
+    }
+    .teacher-left-buttons, 
+    .teacher-right-buttons {
+        width: 90%; 
+        max-width: 400px; 
+    }
+     .teacher-dashboard-container {
+        padding: 70px 20px 40px 20px; 
+        min-height: auto; /* Permitir que se encoja en móvil si el contenido es poco */
+     }
+     .loading-container,
+     .error-container {
+         font-size: 1em; /* Ajustar tamaño de fuente para móvil */
+     }
+}

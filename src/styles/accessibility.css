@@ -1,0 +1,17 @@
+body.large-font {
+  font-size: 1.5em;
+}
+
+body.high-contrast {
+  background-color: black;
+  color: white;
+}
+
+body.dyslexic-font {
+  font-family: 'OpenDyslexic', Arial, sans-serif;
+}
+
+a.highlight-links {
+  background-color: yellow;
+  text-decoration: underline;
+}

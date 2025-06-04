@@ -1,166 +1,286 @@
+/* src/components/Administrador/GestionarUsuarios/GestionarUsuarios.css */
 .manage-users-container {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-  max-width: 900px;
+  max-width: 900px; 
   margin: auto;
-  position: relative;
-  margin-top: 60px;
+  position: relative; 
+  margin-top: 20px; 
+  box-sizing: border-box;
 }
-
-.manage-users-back-button {
+.manage-users-container.view-user-list,
+.manage-users-container.view-edit-form {
+  max-width: 800px; 
+  background-color: rgba(255, 255, 255, 0.05); 
+  border-radius: 8px; 
+}
+.manage-users-back-button#backToPanelButton {
   position: absolute;
-  top: -40px;
-  left: 0px;
+  top: 0px; 
+  left: 0px; 
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.4);
-  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.5); 
   font-size: 14px;
-  padding: 8px 15px;
+  padding: 10px 18px;
   border-radius: 5px;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: none;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
   z-index: 10;
+  transition: background-color 0.3s;
 }
-.manage-users-back-button:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-  transform: translateY(-1px);
-}
-.manage-users-back-button:active {
+.manage-users-back-button#backToPanelButton:hover {
   background-color: rgba(0, 0, 0, 0.7);
-  transform: translateY(0);
 }
-
+.manage-users-back-button.subview-back-button {
+  align-self: flex-start; 
+  margin-bottom: 25px; 
+  background-color: #6c757d; 
+  color: white;
+  padding: 10px 18px;     
+  border-radius: 5px;     
+  border: none;
+  cursor: pointer;
+  font-size: 1em;        
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+.manage-users-back-button.subview-back-button:hover {
+  background-color: #5a6268;
+}
 .manage-users-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   margin-bottom: 30px;
   width: 100%;
+  text-align: center; 
 }
-
 .manage-users-header h1 {
-  font-size: 26px;
+  font-size: 2.2em; 
   font-weight: bold;
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  color: #fff; 
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6); 
   margin: 0;
+  padding-top: 50px; 
 }
-
+.manage-users-container.view-user-list h2,
+.manage-users-container.view-edit-form h2 {
+  font-size: 2em; 
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  margin-top: 0; 
+  margin-bottom: 25px;
+  text-align: center;
+  width: 100%;
+}
 .manage-users-content {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  gap: 30px;
+  gap: 30px; 
 }
-
 .manage-users-modify-section,
 .manage-users-create-section {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.9); 
+  padding: 25px; 
   border-radius: 10px;
-  width: 45%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 45%; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
 }
-
 .manage-users-modify-section h2,
 .manage-users-create-section h2 {
-  font-size: 20px;
+  font-size: 1.3em; 
   margin-top: 0;
-  margin-bottom: 25px;
-  color: #333;
+  margin-bottom: 20px; 
+  color: #333; 
   text-align: center;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
 }
-
 .manage-users-modify-section ul,
 .manage-users-create-section ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .manage-users-modify-section li,
 .manage-users-create-section li {
-  font-size: 18px;
-  margin-bottom: 18px;
+  font-size: 1.1em; 
+  margin-bottom: 15px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #222;
-  padding: 10px 15px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
+  color: #2c3e50; 
+  padding: 12px 18px; 
+  background-color: #f8f9fa; 
+  border-radius: 6px; 
   cursor: pointer;
   transition: background-color 0.2s, box-shadow 0.2s;
+  border: 1px solid #e0e0e0; 
 }
 .manage-users-modify-section li:hover,
 .manage-users-create-section li:hover {
-    background-color: #efefef;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    background-color: #e9ecef; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
 }
-
 .manage-users-icon {
-  font-size: 22px;
-  cursor: pointer;
-  color: #555;
+  font-size: 1.3em; 
+  color: #007bff; 
   font-weight: bold;
   margin-left: 10px;
 }
-
-.error-message {
-  color: #dc3545;
-  background-color: rgba(255, 218, 221, 0.9);
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: center;
-  border: 1px solid rgba(220, 53, 69, 0.3);
+.manage-users-modify-section .manage-users-icon {
+  color: #ffc107; 
 }
-
-.success-message {
-  color: #155724;
-  background-color: rgba(212, 237, 218, 0.9);
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
+.error-message,
+.success-message,
+.loading-message,
+.no-users-message {
+  padding: 12px 18px; 
+  border-radius: 6px; 
+  margin: 20px auto; 
   text-align: center;
-  border: 1px solid rgba(40, 167, 69, 0.3);
+  width: 90%; 
+  max-width: 600px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
 }
-
-.loading-message {
-  color: #004085;
-  background-color: rgba(204, 229, 255, 0.9);
-  padding: 10px;
+.no-users-message {
+  color: #495057;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+}
+.error-message { color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; }
+.success-message { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; }
+.loading-message { color: #004085; background-color: #cce5ff; border: 1px solid #b8daff; }
+.user-search-input {
+  width: calc(100% - 40px); 
+  max-width: 500px;
+  padding: 12px 15px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: center;
-  border: 1px solid rgba(0, 64, 133, 0.3);
+  font-size: 1em;
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto;
+  box-sizing: border-box;
 }
+.user-list-modify {
+  list-style-type: none;
+  padding: 0;
+  width: 100%; 
+  max-width: 750px; 
+  margin-top: 10px; 
+  margin-left: auto;
+  margin-right: auto;
+}
+.user-list-item-modify {
+  background-color: rgba(255, 255, 255, 0.9); 
+  border: 1px solid #ddd;
+  padding: 15px 20px; 
+  margin-bottom: 12px; 
+  border-radius: 6px; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+  transition: background-color 0.2s;
+  color: #333;
+}
+.user-list-item-modify:hover {
+  background-color: rgba(240, 240, 240, 0.95); 
+}
+.user-list-item-modify.user-disabled .user-info {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+.user-list-item-modify .user-info { flex-grow: 1; display: flex; flex-direction: column; }
+.user-list-item-modify .user-info strong { color: #111; font-size: 1.05em; margin-bottom: 3px;}
+.user-list-item-modify .user-info span { font-size: 0.9em; color: #555; }
+.user-list-item-modify .user-info .user-detail { font-size: 0.85em; color: #777; margin-top: 2px; }
+.disabled-tag {
+  font-weight: bold;
+  color: #dc3545; 
+  margin-left: 5px;
+  font-size: 0.8em;
+}
+.user-actions-buttons {
+  display: flex; 
+  gap: 8px; 
+  margin-left: 15px; 
+}
+.user-actions-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85em;
+  transition: background-color 0.2s, opacity 0.2s;
+  color: white;
+}
+.edit-button { background-color: #28a745; }
+.edit-button:hover { background-color: #218838; }
+.toggle-disable-button.disable-button { background-color: #ffc107; }
+.toggle-disable-button.disable-button:hover { background-color: #e0a800; }
+.toggle-disable-button.enable-button { background-color: #17a2b8; }
+.toggle-disable-button.enable-button:hover { background-color: #138496; }
+.delete-button { background-color: #dc3545; }
+.delete-button:hover { background-color: #c82333; }
 
+.user-edit-form-actual { 
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95); 
+  padding: 30px 40px; 
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  margin-top: 20px; 
+}
+.user-edit-form-actual .form-group { margin-bottom: 20px; }
+.user-edit-form-actual label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; font-size: 0.95em; }
+.user-edit-form-actual input[type="text"],
+.user-edit-form-actual input[type="email"],
+.user-edit-form-actual input[type="number"] {
+  width: 100%; 
+  padding: 12px; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box; 
+}
+.user-edit-form-actual input:disabled { background-color: #e9ecef; cursor: not-allowed; }
+.user-edit-form-actual .field-note { font-size: 0.8em; color: #777; font-weight: normal; margin-left: 5px;}
+.user-edit-form-actual .form-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 30px; }
+.user-edit-form-actual .submit-button,
+.user-edit-form-actual .cancel-button {
+  padding: 12px 22px; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500; 
+  transition: background-color 0.2s, transform 0.1s;
+}
+.user-edit-form-actual .submit-button { background-color: #28a745; color: white; }
+.user-edit-form-actual .submit-button:hover { background-color: #218838; transform: translateY(-1px); }
+.user-edit-form-actual .submit-button:disabled { background-color: #a3d8b3; cursor: not-allowed; transform: translateY(0); }
+.user-edit-form-actual .cancel-button { background-color: #6c757d; color: white; }
+.user-edit-form-actual .cancel-button:hover { background-color: #5a6268; transform: translateY(-1px); }
+.user-edit-form-actual .cancel-button:disabled { background-color: #b0b6bb; cursor: not-allowed; transform: translateY(0); }
+.form-feedback-message { 
+  width: 100%;
+  margin-top: 15px;
+  box-sizing: border-box;
+}
 @media (max-width: 768px) {
-    .manage-users-content {
-        flex-direction: column;
-        width: 90%;
-        gap: 25px;
-    }
-    .manage-users-modify-section,
-    .manage-users-create-section {
-        width: 100%;
-    }
-     .manage-users-container {
-        padding: 15px;
-        margin-top: 70px;
-    }
-    .manage-users-header h1 {
-        font-size: 22px;
-    }
+    .manage-users-content { flex-direction: column; width: 95%; gap: 20px; }
+    .manage-users-modify-section, .manage-users-create-section { width: 100%; padding: 20px; }
+    .manage-users-container { padding: 15px; margin-top: 20px; } 
+    .manage-users-back-button#backToPanelButton { position: static; margin-bottom: 15px; align-self: flex-start;} 
+    .manage-users-header h1 { font-size: 1.8em; padding-top: 0;}
+    .manage-users-container.view-user-list h2, .manage-users-container.view-edit-form h2 { font-size: 1.6em;}
+    .user-search-input { width: 100%; }
+    .user-edit-form-actual { padding: 20px; }
+    .user-edit-form-actual .form-actions { flex-direction: column; gap: 10px; }
+    .user-edit-form-actual .form-actions button { width: 100%; }
+    .user-list-item-modify { flex-direction: column; align-items: flex-start; } /* Ajuste para móvil */
+    .user-actions-buttons { width: 100%; margin-top: 10px; justify-content: flex-start; } /* Ajuste para móvil */
 }
